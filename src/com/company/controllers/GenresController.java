@@ -75,7 +75,7 @@ public class GenresController {
         statement.executeQuery();
     }
 
-    public static List<Genre> find(String name) throws SQLException {
-        return index().stream().filter(g -> g.name == name).collect(Collectors.toList());
+    public static Genre find(String name) throws SQLException {
+        return index().stream().filter(g -> g.name == name).collect(Collectors.toList()).get(0);
     }
 }
