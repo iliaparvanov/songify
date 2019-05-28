@@ -36,15 +36,15 @@ public class SongsController {
         return songs;
     }
 
-    public static void create(Song song) throws SQLException {
+    public static void create(String title, String releaseDate, String length, Album album) throws SQLException {
 
         String sql = "INSERT INTO Song(title, releaseDate, length, albumId) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, song.title);
-        statement.setString(2, song.releaseDate);
-        statement.setString(3, song.length);
-        statement.setInt(4, song.album.id);
+        statement.setString(1, title);
+        statement.setString(2, releaseDate);
+        statement.setString(3, length);
+        statement.setInt(4, album.id);
 
         int rowsInserted = statement.executeUpdate();
         if (rowsInserted > 0) {

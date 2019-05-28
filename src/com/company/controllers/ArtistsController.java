@@ -13,11 +13,11 @@ public class ArtistsController {
 
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
-    public static void create(Artist artist) throws SQLException {
-        String sql = "INSERT INTO Song(Name) VALUES (?)";
+    public static void create(String name) throws SQLException {
+        String sql = "INSERT INTO Artist(Name) VALUES (?)";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, artist.name);
+        statement.setString(1, name);
 
         int rowsInserted = statement.executeUpdate();
         if (rowsInserted > 0) {

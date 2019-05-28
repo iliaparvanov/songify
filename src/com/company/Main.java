@@ -52,24 +52,19 @@ public class Main {
             case "create":
                 switch (type){
                     case "song":
-
-                        Song song = new Song(scanner.next(),scanner.next(), scanner.next(), null);
-                        SongsController.create(song);
+                        SongsController.create(scanner.next(),scanner.next(), scanner.next(), null);
                         break;
 
                     case "genre":
-                        Genre genre = new Genre(scanner.next());
-                        GenresController.create(genre);
+                        GenresController.create(scanner.next());
                         break;
 
                     case "artist":
-                        Artist artist = new Artist(id, scanner.next());
-                        ArtistsController.create(artist);
+                        ArtistsController.create(scanner.next());
                         break;
 
                     case "album":
-                        Album album = new Album(id, scanner.next(), 1);
-                        AlbumsController.create(album);
+                        AlbumsController.create(scanner.next(), 1);
                         break;
 
                 }

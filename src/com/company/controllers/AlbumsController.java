@@ -1,6 +1,7 @@
 package com.company.controllers;
 
 import com.company.Album;
+import com.company.Artist;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
 
@@ -33,11 +34,11 @@ public class AlbumsController {
         return albums;
     }
 
-    public static void create(Album album) throws SQLException{
+    public static void create(String title, Artist artist) throws SQLException{
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
-        statement.setString(1, album.title);
-        statement.setInt(2, album.artist.id);
+        statement.setString(1, title);
+        statement.setInt(2, artist.id);
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){

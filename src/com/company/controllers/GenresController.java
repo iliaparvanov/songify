@@ -32,12 +32,12 @@ public class GenresController {
         return genres;
     }
 
-    public static void create(Genre genre) throws SQLException{
+    public static void create(String name) throws SQLException{
 
         PreparedStatement statement = connection.getConn()
-                .prepareStatement("INSERT INTO Genre (name) VALUES("+ genre.name +")");
+                .prepareStatement("INSERT INTO Genre (name) VALUES(?)");
 
-
+        statement.setString(1, name);
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
