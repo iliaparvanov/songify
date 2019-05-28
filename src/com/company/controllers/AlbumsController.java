@@ -1,16 +1,15 @@
 package com.company.controllers;
 
+import com.company.Album;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
-import com.company.Genre;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GenresController {
-
+public class AlbumsController {
     static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public static void index() throws SQLException {
@@ -22,42 +21,43 @@ public class GenresController {
         int count = 0;
 
         while (result.next()){
-            String name = result.getString("name");
+            String title = result.getString("title");
+            String artistId = result.getString("artistId");
 
-            String output = "Genre #%d: %s";
-            System.out.println(String.format(output, ++count, name));
+            String output = "Song #%d: %s - %s";
+            System.out.println(String.format(output, ++count, title, artistId));
         }
     }
 
-    public static void create(Genre genre) throws SQLException{
-
+    public static void create(Album album) throws SQLException{
         PreparedStatement statement = connection.getConn()
-                .prepareStatement("INSERT INTO Genre (name) VALUES("+ genre.name +")");
-
-
+                .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
+        statement.setString(1, album.title);
+        statement.setString(2, album.artistId+"");
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
-            System.out.println("Album inserted succesfully");
+            System.out.println("Genre inserted succesfully");
         }
+
     }
 
-    public void delete(int id) throws SQLException{
+    public void delete(int id) throws SQLException {
 
-        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Genre WHERE id = ?");
+        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
         statement.setString(1, id+"");
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
             System.out.println("Genre deleted succesfully");
         }
-
     }
 
-    public static void update(int id, String name) throws  SQLException{
+    public static void update(int id, String title, int artistId) throws SQLException{
         PreparedStatement statement = connection.getConn()
-                .prepareStatement("UPDATE Genre SET name=? WHERE Id=?");
+                .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
 
-        statement.setString(1, name);
+        statement.setString(1, title);
+        statement.setString(2, artistId+"");
         statement.setString(3, id+"");
 
         int rowsUpdated = statement.executeUpdate();
@@ -66,9 +66,10 @@ public class GenresController {
         }
     }
 
-    public static void show(String name) throws  SQLException{
+    public static void show(String title) throws SQLException{
+
         PreparedStatement statement = connection.getConn()
-                .prepareStatement("SELECT * From Genre WHERE title="+ name);
+                .prepareStatement("SELECT * From Album WHERE title="+ title);
         statement.executeQuery();
     }
 }

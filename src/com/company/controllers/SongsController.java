@@ -33,7 +33,7 @@ public class SongsController {
         }
     }
 
-    private static void create(Song song) throws SQLException {
+    public static void create(Song song) throws SQLException {
 
         String sql = "INSERT INTO Song(title, releaseDate, length, albumId) VALUES (?, ?, ?, ?)";
 
