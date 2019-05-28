@@ -8,13 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SongsController {
 
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
-
-    public static void index() throws SQLException {
+    public static List<Song> index() throws SQLException {
         String sql = "SELECT * FROM Song";
 
         Statement statement = connection.getConn().createStatement();
@@ -22,15 +23,15 @@ public class SongsController {
 
         int count = 0;
 
+        List<Song> songs = new ArrayList<>();
         while (result.next()){
-            String title = result.getString(2);
-            String releasedDate = result.getString(3);
-            String length = result.getString("length");
-            String albumId = result.getString("albumId");
+            songs.add(new Song(result.getString(2), result.getString(3), result.getString("length"),
+                    result.getString("albumId")));
 
-            String output = "Song #%d: %s - %s - %s - %s";
-            System.out.println(String.format(output, ++count, title, releasedDate, length, albumId));
+//            String output = "Song #%d: %s - %s - %s - %s";
+//            System.out.println(String.format(output, ++count, title, releasedDate, length, albumId));
         }
+        return songs;
     }
 
     public static void create(Song song) throws SQLException {

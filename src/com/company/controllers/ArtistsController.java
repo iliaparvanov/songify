@@ -3,9 +3,14 @@ package com.company.controllers;
 import com.company.Artist;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
+import com.company.Song;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArtistsController {
 
@@ -27,7 +32,18 @@ public class ArtistsController {
 
     }
 
-    public static void index() {
+    public static List<Artist> index() throws SQLException {
+        String sql = "SELECT * FROM Artist";
+
+        Statement statement = connection.getConn().createStatement();
+        ResultSet result = statement.executeQuery(sql);
+
+        List<Artist> artists = new ArrayList<>();
+        while (result.next()) {
+            artists.add(new Artist(result.getString("Name")));
+        }
+
+        return artists;
 
     }
 
