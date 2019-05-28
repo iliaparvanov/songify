@@ -15,7 +15,7 @@ public class TableInitializer {
                         "Id int not null auto_increment primary key," +
                         "title varchar(20)," +
                         "releaseDate date," +
-                        "lenght varchar(4)," +
+                        "length varchar(4)," +
                         "albumId int);");
 //                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
 
@@ -35,7 +35,7 @@ public class TableInitializer {
         connection.insertStatment(
                 "create table Album ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                        "Title VARCHAR(150) NOT NULL" +
+                        "Title VARCHAR(150) NOT NULL," +
                         "ArtistID INTEGER NOT NULL);");
 //                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
 
