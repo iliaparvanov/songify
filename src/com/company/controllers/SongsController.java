@@ -29,10 +29,10 @@ public class SongsController {
         while (result.next()){
             songs.add(new Song(result.getString(2), result.getString(3), result.getString("length"),
                     AlbumsController.find(result.getInt("albumId")), ArtistsController.find(result.getInt("artistId"))));
-
 //            String output = "Song #%d: %s - %s - %s - %s";
 //            System.out.println(String.format(output, ++count, title, releasedDate, length, albumId));
         }
+
         return songs;
     }
 
@@ -82,7 +82,7 @@ public class SongsController {
 
     public static List<Song> find(String title) throws SQLException {
         return index().stream()
-                                  .filter(s -> s.title == title)
+                                  .filter(s -> s.title.equals(title))
                                   .collect(Collectors.toList());
     }
 }

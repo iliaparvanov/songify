@@ -25,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        TableInitializer.createAllTables();
+//        TableInitializer.createAllTables();
 
         System.out.println("Wellcome to Songify");
 
@@ -39,13 +39,15 @@ public class Main {
             case "find":
                 switch (type){
                     case "song":
+                        System.out.print("asdf");
 
                         List<Song> songs =  SongsController.find(scanner.next());
-
-                        options(songs);
+                        if(songs.isEmpty()) {
+                            System.out.println("No songs found...");
+                        }
                         System.out.println("Choose a song");
 
-                        index = scanner.nextInt();
+                        index = options(songs);
 
                         Song song = songs.get(index-1);
 
@@ -60,21 +62,22 @@ public class Main {
                                     if(scanner.next().equals("name:")){
                                         song.title = scanner.next();
                                     }
-                                    if(scanner.next().equals("releaseDate:")){
+                                    else if(scanner.next().equals("releaseDate:")){
                                         song.releaseDate = scanner.next();
                                     }
-                                    if(scanner.next().equals("length:")){
+                                    else if(scanner.next().equals("length:")){
                                         song.length = scanner.next();
                                     }
-                                    if(scanner.next().equals("album:")) {
+                                    else if(scanner.next().equals("album:")) {
                                         List<Album> albums = AlbumsController.find(scanner.next());
                                         int choice = options(albums);
                                         song.album = albums.get(choice);
                                     }
-                                    if(scanner.next().equals(";")){
+                                    else if(scanner.next().equals(";")){
                                         break;
                                     }
                                 }
+                                System.out.println("Updated");
                                 SongsController.update(song);
 
 

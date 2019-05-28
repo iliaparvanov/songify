@@ -66,7 +66,7 @@ public class TableInitializer {
         connection.getConn().createStatement().execute(
                 "CREATE TABLE ArtistSong(" +
                         "ArtistId INTEGER NOT NULL," +
-                        "SongId VARCHAR(13) NOT NULL," +
+                        "SongId INTEGER NOT NULL," +
                         "PRIMARY KEY (ArtistId, SongId)," +
                         "FOREIGN KEY (ArtistId) REFERENCES Artist(Id) ON DELETE CASCADE," +
                         "FOREIGN KEY (SongId) REFERENCES Song(Id) ON DELETE CASCADE);"

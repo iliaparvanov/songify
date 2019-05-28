@@ -5,7 +5,7 @@ import java.util.Properties;
 public class DbConnectionFactory {
     //AKO NESHTO GURMI, PROMENI FUNCKIQTA, KOQTO VRUSHTA TAZI FUNKCIQ
     public static DbConnection getDbConnection() {
-        return getIliaDbConnection();
+        return getStandardDbConnection();
     }
 
     private static DbConnection getStandardDbConnection() {
