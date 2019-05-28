@@ -58,8 +58,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/db_builder/TableInitializer.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="171">
               <caret line="24" column="39" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="39" />
+=======
+            <state relative-caret-position="392">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,10 +105,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="130" />
-    <option name="y" value="110" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-8" />
+    <option name="width" value="977" />
+    <option name="height" value="523" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -144,8 +148,13 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559048980342" />
     <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.16.jar!/" />
+=======
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559047920155" />
+    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.15.jar!/" />
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -199,7 +208,17 @@
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" weight="0.15298508" />
+=======
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="DB Browser" weight="0.3295302" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -210,8 +229,13 @@
       <window_info anchor="bottom" id="SQL" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.52518755" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978564" />
+=======
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -271,7 +295,11 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/com/company/db_builder/TableInitializer.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="24" column="39" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="39" />
@@ -295,10 +323,17 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/com/company/db_builder/TableInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+>>>>>>> b5b99c317af82834b123e1a0befa915774d683eb
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

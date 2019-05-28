@@ -43,3 +43,6 @@ public class TableInitializer {
         System.out.println("Album table initilized");
     }
 }
+
+    първа българска армия 67
+        читалище искра
