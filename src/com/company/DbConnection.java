@@ -12,6 +12,10 @@ public class DbConnection {
     private String user;
     private String pass;
 
+    public Connection getCon() {
+        return con;
+    }
+
     public DbConnection(String dbName, String user, String pass) {
         this.dbName = dbName;
         this.user = user;
@@ -37,6 +41,10 @@ public class DbConnection {
     public void insertStatment(String sql) throws SQLException {
         Statement statement = con.createStatement();
         statement.execute(sql);
+    }
+
+    public void update(PreparedStatement statement) throws SQLException {
+        statement.executeUpdate();
     }
 
     public ResultSet makeQuery(String query) throws SQLException {

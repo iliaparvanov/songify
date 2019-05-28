@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class TableInitializer {
 
-    final static DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
+    final static DbConnection connection = new DbConnection("Songify", "root", "root");
 
     public static void createSongTable() throws SQLException {
         connection.insertStatment(
@@ -16,7 +16,7 @@ public class TableInitializer {
                         "title varchar(20)," +
                         "releaseDate date," +
                         "lenght varchar(4)," +
-                        "albumId int not null);");
+                        "albumId int);");
 //                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
 
 
@@ -36,7 +36,7 @@ public class TableInitializer {
                 "create table Album ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
                         "Title VARCHAR(150) NOT NULL" +
-                        "ArtistID INTEGER NOT NULL,);");
+                        "ArtistID INTEGER NOT NULL);");
 //                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
 
 
