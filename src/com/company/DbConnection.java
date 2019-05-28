@@ -37,18 +37,4 @@ public class DbConnection {
 
         System.out.println("Connected to " + dbName);
     }
-
-    public void insertStatment(String sql) throws SQLException {
-        Statement statement = con.createStatement();
-        statement.execute(sql);
-    }
-
-    public void update(PreparedStatement statement) throws SQLException {
-        statement.executeUpdate();
-    }
-
-    public ResultSet makeQuery(String query) throws SQLException {
-        Statement statement = con.createStatement();
-        return statement.executeQuery(query);
-    }
 }

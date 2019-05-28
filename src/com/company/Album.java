@@ -4,17 +4,36 @@ import com.company.DbConnection;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Album {
     private final String title;
     private final int artistId;
 
-    DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
+    static DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
 
     public Album(String title, int artistId) {
         this.title = title;
         this.artistId = artistId;
+    }
+
+    public static void index() throws SQLException {
+        String sql = "SELECT * FROM Song";
+
+        Statement statement = connection.getCon().createStatement();
+        ResultSet result = statement.executeQuery(sql);
+
+        int count = 0;
+
+        while (result.next()){
+            String title = result.getString("title");
+            String artistId = result.getString("artistId");
+
+            String output = "Song #%d: %s - %s";
+            System.out.println(String.format(output, ++count, title, artistId));
+        }
     }
 
     private void create() throws SQLException{

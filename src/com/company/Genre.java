@@ -1,16 +1,35 @@
 package com.company;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Genre {
 
     private final String name;
-    DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
+    static DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
 
     public Genre(String name) {
         this.name = name;
     }
+
+    public static void index() throws SQLException {
+        String sql = "SELECT * FROM Song";
+
+        Statement statement = connection.getCon().createStatement();
+        ResultSet result = statement.executeQuery(sql);
+
+        int count = 0;
+
+        while (result.next()){
+            String name = result.getString("name");
+
+            String output = "Genre #%d: %s";
+            System.out.println(String.format(output, ++count, name));
+        }
+    }
+
     private void create() throws SQLException{
 
         PreparedStatement statement = connection.getCon()
