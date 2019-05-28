@@ -6,7 +6,6 @@ import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
 import com.company.db_builder.TableInitializer;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -64,12 +63,12 @@ public class Main {
                         break;
 
                     case "artist":
-                        Artist artist = new Artist(scanner.next());
+                        Artist artist = new Artist(id, scanner.next());
                         ArtistsController.create(artist);
                         break;
 
                     case "album":
-                        Album album = new Album(scanner.next(), 1);
+                        Album album = new Album(id, scanner.next(), 1);
                         AlbumsController.create(album);
                         break;
 

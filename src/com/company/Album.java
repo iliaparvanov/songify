@@ -1,20 +1,13 @@
 package com.company;
 
-import com.company.DbConnection;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class Album {
-    public int id;
+    public final int id;
     public final String title;
-    public final int artistId;
+    public final Artist artist;
 
-    public Album(String title, int artistId) {
+    public Album(int id, String title, Artist artist) {
+        this.id = id;
         this.title = title;
-        this.artistId = artistId;
+        this.artist = artist;
     }
 }

@@ -1,9 +1,6 @@
 package com.company.controllers;
 
-import com.company.Artist;
-import com.company.DbConnection;
-import com.company.DbConnectionFactory;
-import com.company.Song;
+import com.company.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +37,7 @@ public class ArtistsController {
 
         List<Artist> artists = new ArrayList<>();
         while (result.next()) {
-            artists.add(new Artist(result.getString("Name")));
+            artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
         }
 
         return artists;
@@ -60,5 +57,29 @@ public class ArtistsController {
         if (rowsDeleted > 0) {
             System.out.println("An artist was deleted successfully!");
         }
+    }
+
+    public static List<Artist> find(String name) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name= ?");
+        statement.setString(1, name);
+
+        ResultSet result = statement.executeQuery();
+        List<Artist> artists = new ArrayList<>();
+        while (result.next()) {
+            artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
+        }
+        return artists;
+    }
+
+    public static Artist find(int id) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Id = ?");
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
+        Artist artist = null;
+        while (result.next()) {
+            artist = new Artist(id, result.getString("Name"));
+        }
+        return artist;
     }
 }

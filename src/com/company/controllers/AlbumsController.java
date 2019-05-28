@@ -3,7 +3,6 @@ package com.company.controllers;
 import com.company.Album;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
-import com.mysql.cj.protocol.Resultset;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AlbumsController {
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
@@ -30,7 +28,7 @@ public class AlbumsController {
             String title = result.getString("title");
             int artistId = result.getInt("artistId");
 
-            albums.add(new Album(title, artistId));
+            albums.add(new Album(result.getInt("Id"), title, ArtistsController.find(artistId)));
         }
         return albums;
     }
@@ -39,7 +37,7 @@ public class AlbumsController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
         statement.setString(1, album.title);
-        statement.setString(2, album.artistId+"");
+        statement.setInt(2, album.artist.id);
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
@@ -63,7 +61,7 @@ public class AlbumsController {
                 .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
 
         statement.setString(1, album.title);
-        statement.setString(2, album.artistId+"");
+        statement.setInt(2, album.artist.id);
         statement.setInt(3, album.id);
 
         int rowsUpdated = statement.executeUpdate();
@@ -86,7 +84,7 @@ public class AlbumsController {
         ResultSet result = statement.executeQuery();
         List<Album> albums = new ArrayList<>();
         while (result.next()) {
-            albums.add(new Album(result.getString("Title"), result.getInt("ArtistID")));
+            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
         }
         return albums;
     }
@@ -98,7 +96,7 @@ public class AlbumsController {
         ResultSet result = statement.executeQuery();
         List<Album> albums = new ArrayList<>();
         while (result.next()) {
-            albums.add(new Album(result.getString("Title"), result.getInt("ArtistID")));
+            albums.add(new Album(id, result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
         }
         return albums.get(0);
     }
