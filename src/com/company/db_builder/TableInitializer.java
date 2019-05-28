@@ -26,7 +26,7 @@ public class TableInitializer {
         connection.insertStatment(
                 "create table Genre ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                        "Name VARCHAR(150) NOT NULL);");
+                        "name VARCHAR(150) NOT NULL);");
 //
         System.out.println("Genre table initilized");
     }
@@ -35,14 +35,11 @@ public class TableInitializer {
         connection.insertStatment(
                 "create table Album ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                        "Title VARCHAR(150) NOT NULL" +
-                        "ArtistID INTEGER NOT NULL,);");
+                        "title VARCHAR(150) NOT NULL" +
+                        "artistID INTEGER NOT NULL,);");
 //                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
 
 
         System.out.println("Album table initilized");
     }
 }
-
-    първа българска армия 67
-        читалище искра
