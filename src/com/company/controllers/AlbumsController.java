@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AlbumsController {
-    static DbConnection connection = DbConnectionFactory.getDbConnection();
+    private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public static void index() throws SQLException {
         String sql = "SELECT * FROM Song";
