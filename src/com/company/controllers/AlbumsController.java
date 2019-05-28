@@ -3,6 +3,7 @@ package com.company.controllers;
 import com.company.Album;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
+import com.mysql.cj.protocol.Resultset;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,6 +80,26 @@ public class AlbumsController {
     }
 
     public static List<Album> find(String title) throws SQLException{
-        return index().stream().filter(a -> a.title == title).collect(Collectors.toList())
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title = ?");
+        statement.setString(1, title);
+
+        ResultSet result = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+        while (result.next()) {
+            albums.add(new Album(result.getString("Title"), result.getInt("ArtistID")));
+        }
+        return albums;
+    }
+
+    public static Album find(int id) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Id = ?");
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+        while (result.next()) {
+            albums.add(new Album(result.getString("Title"), result.getInt("ArtistID")));
+        }
+        return albums.get(0);
     }
 }
