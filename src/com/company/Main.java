@@ -64,7 +64,7 @@ public class Main {
                         break;
 
                     case "album":
-                        AlbumsController.create(scanner.next(), 1);
+                        AlbumsController.create(scanner.next(), ArtistsController.find(1));
                         break;
 
                 }
