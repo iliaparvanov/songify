@@ -5,6 +5,7 @@ import com.company.controllers.ArtistsController;
 import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
 import com.company.db_builder.TableInitializer;
+import com.mysql.cj.xdevapi.Table;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -12,12 +13,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        TableInitializer.createGenreTable();
-        TableInitializer.createSongTable();
-        TableInitializer.createAlbumTable();
-        TableInitializer.createArtistTable();
 
-
+        TableInitializer.createAllTables();
 
         System.out.println("Wellcome to Songify");
 

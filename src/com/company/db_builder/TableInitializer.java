@@ -10,6 +10,14 @@ public class TableInitializer {
 
     final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
+    public static void createAllTables() throws SQLException {
+        TableInitializer.createGenreTable();
+        TableInitializer.createSongTable();
+        TableInitializer.createAlbumTable();
+        TableInitializer.createArtistTable();
+        TableInitializer.createArtistSongTable();
+    }
+
     public static void createSongTable() throws SQLException {
         connection.getConn().createStatement().execute(
                             "create table Song ( " +
@@ -51,5 +59,18 @@ public class TableInitializer {
                         "Name VARCHAR(150) NOT NULL);");
 
         System.out.println("Artist table initialised");
+    }
+
+    public static void createArtistSongTable() throws SQLException {
+        connection.getConn().createStatement().execute(
+                "CREATE TABLE ArtistSong(" +
+                        "ArtistId INTEGER NOT NULL," +
+                        "SongId VARCHAR(13) NOT NULL," +
+                        "PRIMARY KEY (ArtistId, SongId)," +
+                        "FOREIGN KEY (ArtistId) REFERENCES Artist(Id) ON DELETE CASCADE," +
+                        "FOREIGN KEY (SongId) REFERENCES Song(Id) ON DELETE CASCADE);"
+        );
+
+        System.out.println("ArtistSong table initialised");
     }
 }
