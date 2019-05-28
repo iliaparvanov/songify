@@ -16,6 +16,13 @@ public class DbConnection {
         this.dbName = dbName;
         this.user = user;
         this.pass = pass;
+        try {
+            connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void connect() throws SQLException, ClassNotFoundException {
@@ -27,9 +34,13 @@ public class DbConnection {
         System.out.println("Connected to " + dbName);
     }
 
-    public ResultSet insertStatment(String sql) throws SQLException {
+    public void insertStatment(String sql) throws SQLException {
         Statement statement = con.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        return result;
+        statement.execute(sql);
+    }
+
+    public ResultSet makeQuery(String query) throws SQLException {
+        Statement statement = con.createStatement();
+        return statement.executeQuery(query);
     }
 }
