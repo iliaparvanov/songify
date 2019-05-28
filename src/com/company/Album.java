@@ -2,8 +2,8 @@ package com.company;
 
 public class Album {
     public final int id;
-    public final String title;
-    public final Artist artist;
+    public String title;
+    public Artist artist;
 
     public Album(int id, String title, Artist artist) {
         this.id = id;

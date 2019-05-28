@@ -47,7 +47,7 @@ public class AlbumsController {
 
     }
 
-    public void delete(int id) throws SQLException {
+    public static void delete(int id) throws SQLException {
 
         PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
         statement.setString(1, id+"");

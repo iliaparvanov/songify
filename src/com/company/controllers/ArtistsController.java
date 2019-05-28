@@ -59,7 +59,7 @@ public class ArtistsController {
         }
     }
 
-    public static List<Artist> find(String name) throws SQLException {
+    public static Artist find(String name) throws SQLException {
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name= ?");
         statement.setString(1, name);
 
@@ -68,7 +68,7 @@ public class ArtistsController {
         while (result.next()) {
             artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
         }
-        return artists;
+        return artists.get(0);
     }
 
     public static Artist find(int id) throws SQLException {

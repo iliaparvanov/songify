@@ -14,8 +14,10 @@ import java.util.Scanner;
 public class Main {
 
     public static <E> int options(List<E> options) {
+        int i=0;
         for (E e : options) {
-            System.out.println(e.toString());
+            i++;
+            System.out.println(i+". " + e.toString());
         }
         Scanner sc = new Scanner(System.in);
         return Integer.valueOf(sc.next());
@@ -31,22 +33,19 @@ public class Main {
         String crud = scanner.next();
         String type = scanner.next();
         String option;
-        int i=0;
+        int index;
+
         switch (crud){
             case "find":
                 switch (type){
                     case "song":
 
                         List<Song> songs =  SongsController.find(scanner.next());
-                        i=0;
-                        for(Song s : songs){
-                            i++;
-                            System.out.println(i +". " + s.title + "- by " + s.artist.name);
 
-                        }
+                        options(songs);
                         System.out.println("Choose a song");
 
-                        int index = scanner.nextInt();
+                        index = scanner.nextInt();
 
                         Song song = songs.get(index-1);
 
@@ -67,12 +66,16 @@ public class Main {
                                     if(scanner.next().equals("length:")){
                                         song.length = scanner.next();
                                     }
-                                    if(scanner.next().equals("album")) {
+                                    if(scanner.next().equals("album:")) {
                                         List<Album> albums = AlbumsController.find(scanner.next());
                                         int choice = options(albums);
                                         song.album = albums.get(choice);
                                     }
+                                    if(scanner.next().equals(";")){
+                                        break;
+                                    }
                                 }
+                                SongsController.update(song);
 
 
 
@@ -83,15 +86,17 @@ public class Main {
 
                     case "genre":
 
-                        GenresController.find(scanner.next());
+                        Genre genre = GenresController.find(scanner.next());
 
                         option = scanner.next();
                         switch (option){
                             case "delete":
-
+                                GenresController.delete(genre.id);
                                 break;
                             case "update":
-
+                                if(scanner.next().equals("name:")){
+                                    genre.name = scanner.next();
+                                }
                                 break;
 
                             case "back":
@@ -101,15 +106,18 @@ public class Main {
 
                     case "artist":
 
-                        ArtistsController.find(scanner.next());
+                        Artist artist = ArtistsController.find(scanner.next());
 
                         option = scanner.next();
                         switch (option){
                             case "delete":
+                                ArtistsController.delete(artist.id);
 
                                 break;
                             case "update":
-
+                                if(scanner.next().equals("name:")){
+                                    artist.name = scanner.next();
+                                }
                                 break;
 
                             case "back":
@@ -119,14 +127,36 @@ public class Main {
 
                     case "album":
 
-                        AlbumsController.find(scanner.next());
+                        List<Album> albums = AlbumsController.find(scanner.next());
+                        options(albums);
+
+                        System.out.println("Choose a album");
+
+                        index = scanner.nextInt();
+                        Album album = albums.get(index-1);
+
+                        System.out.println("Choose an option");
                         option = scanner.next();
                         switch (option){
                             case "delete":
-
+                                AlbumsController.delete(album.id);
                                 break;
                             case "update":
+                                while(scanner.hasNext()){
+                                    if(scanner.next().equals("name:")){
+                                        album.title = scanner.next();
+                                    }
 
+
+                                    if(scanner.next().equals("artist:")) {
+                                        album.artist = ArtistsController.find(scanner.next());
+
+                                    }
+                                    if(scanner.next().equals(";")){
+                                        break;
+                                    }
+                                }
+                                AlbumsController.update(album);
                                 break;
 
                             case "back":

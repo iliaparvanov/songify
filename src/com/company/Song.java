@@ -22,4 +22,13 @@ public class Song {
         this.album = album;
         this.artist = artist;
     }
+
+    @Override
+    public String toString() {
+        return  title + ", by" + artist.name;
+
+
+
+
+    }
 }

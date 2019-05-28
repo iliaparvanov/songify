@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class Genre {
     public int id;
 
-    public final String name;
+    public String name;
 
     public Genre(String name) {
         this.name = name;
