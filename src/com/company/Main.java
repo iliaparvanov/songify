@@ -27,8 +27,28 @@ public class Main {
         String type = scanner.next();
         switch (crud){
             case "find":
-                System.out.println("Enter the song name");
+                switch (type){
+                    case "song":
 
+                        SongsController.find(scanner.next());
+                        break;
+
+                    case "genre":
+
+                        GenresController.find(scanner.next());
+                        break;
+
+                    case "artist":
+
+                        ArtistsController.find(scanner.next());
+                        break;
+
+                    case "album":
+
+                        AlbumsController.find(scanner.next());
+                        break;
+
+                }
                 break;
             case "create":
                 switch (type){
