@@ -8,6 +8,7 @@ import com.company.db_builder.TableInitializer;
 import com.mysql.cj.xdevapi.Table;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,27 +22,103 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String crud = scanner.next();
         String type = scanner.next();
+        String option;
+        int i=0;
         switch (crud){
             case "find":
                 switch (type){
                     case "song":
 
-                        SongsController.find(scanner.next());
+                        List<Song> songs =  SongsController.find(scanner.next());
+                        i=0;
+                        for(Song s : songs){
+                            i++;
+                            System.out.println(i +". " + s.title + "- by " + s.artist.name);
+
+                        }
+                        System.out.println("Choose a song");
+
+                        int index = scanner.nextInt();
+
+                        Song song = songs.get(index-1);
+
+                        System.out.println("Choose an option");
+                        option = scanner.next();
+                        switch (option){
+                            case "delete":
+                                SongsController.delete(song.id);
+                                break;
+                            case "update":
+                                while(scanner.hasNext()){
+                                    if(scanner.next().equals("name:")){
+                                        song.title = scanner.next();
+                                    }
+                                    if(scanner.next().equals("releaseDate:")){
+                                        song.releaseDate = scanner.next();
+                                    }
+                                    if(scanner.next().equals("length")){
+                                        song.length = scanner.next();
+                                    }
+                                }
+
+
+
+                            case "back":
+                                break;
+                        }
                         break;
 
                     case "genre":
 
                         GenresController.find(scanner.next());
+
+                        option = scanner.next();
+                        switch (option){
+                            case "delete":
+
+                                break;
+                            case "update":
+
+                                break;
+
+                            case "back":
+                                break;
+                        }
                         break;
 
                     case "artist":
 
                         ArtistsController.find(scanner.next());
+
+                        option = scanner.next();
+                        switch (option){
+                            case "delete":
+
+                                break;
+                            case "update":
+
+                                break;
+
+                            case "back":
+                                break;
+                        }
                         break;
 
                     case "album":
 
                         AlbumsController.find(scanner.next());
+                        option = scanner.next();
+                        switch (option){
+                            case "delete":
+
+                                break;
+                            case "update":
+
+                                break;
+
+                            case "back":
+                                break;
+                        }
                         break;
 
                 }
@@ -68,10 +145,7 @@ public class Main {
 
                 break;
 
-            case "update":
-                System.out.println("");
 
-            case "delete":
 
             case "index":
         }

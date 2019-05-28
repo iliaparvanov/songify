@@ -25,7 +25,8 @@ public class TableInitializer {
                         "title varchar(20)," +
                         "releaseDate date," +
                         "length varchar(4)," +
-                        "albumId int);");
+                        "albumId int,"+
+                        "artistId int);");
 //                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
 
 

@@ -28,7 +28,7 @@ public class SongsController {
         List<Song> songs = new ArrayList<>();
         while (result.next()){
             songs.add(new Song(result.getString(2), result.getString(3), result.getString("length"),
-                    AlbumsController.find(result.getInt("albumId"))));
+                    AlbumsController.find(result.getInt("albumId")), ArtistsController.find(result.getInt("artistId"))));
 
 //            String output = "Song #%d: %s - %s - %s - %s";
 //            System.out.println(String.format(output, ++count, title, releasedDate, length, albumId));

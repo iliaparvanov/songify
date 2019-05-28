@@ -13,11 +13,13 @@ public class Song {
     public final String releaseDate;
     public final String length;
     public final Album album;
+    public final Artist artist;
 
-    public Song(String title, String releaseDate, String length, Album album) throws SQLException {
+    public Song(String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;
         this.album = album;
+        this.artist = artist;
     }
 }
