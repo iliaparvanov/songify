@@ -9,11 +9,11 @@ import java.sql.Statement;
 
 public class Song {
     public int id;
-    public final String title;
-    public final String releaseDate;
-    public final String length;
-    public final Album album;
-    public final Artist artist;
+    public  String title;
+    public  String releaseDate;
+    public  String length;
+    public  Album album;
+    public  Artist artist;
 
     public Song(String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
         this.title = title;

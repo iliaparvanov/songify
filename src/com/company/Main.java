@@ -13,6 +13,14 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static <E> int options(List<E> options) {
+        for (E e : options) {
+            System.out.println(e.toString());
+        }
+        Scanner sc = new Scanner(System.in);
+        return Integer.valueOf(sc.next());
+    }
+
     public static void main(String[] args) throws SQLException {
 
         TableInitializer.createAllTables();
@@ -56,8 +64,13 @@ public class Main {
                                     if(scanner.next().equals("releaseDate:")){
                                         song.releaseDate = scanner.next();
                                     }
-                                    if(scanner.next().equals("length")){
+                                    if(scanner.next().equals("length:")){
                                         song.length = scanner.next();
+                                    }
+                                    if(scanner.next().equals("album")) {
+                                        List<Album> albums = AlbumsController.find(scanner.next());
+                                        int choice = options(albums);
+                                        song.album = albums.get(choice);
                                     }
                                 }
 
