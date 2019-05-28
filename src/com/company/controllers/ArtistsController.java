@@ -44,14 +44,21 @@ public class ArtistsController {
         }
 
         return artists;
-
     }
 
     public static void update() {
 
     }
 
-    public static void delete() {
+    public static void delete(int id) throws SQLException {
+        String sql = "DELETE FROM Song WHERE id=?";
 
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
+        statement.setString(1, id + "");
+
+        int rowsDeleted = statement.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("An artist was deleted successfully!");
+        }
     }
 }
