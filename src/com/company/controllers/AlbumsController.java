@@ -52,13 +52,13 @@ public class AlbumsController {
         }
     }
 
-    public static void update(int id, String title, int artistId) throws SQLException{
+    public static void update(Album album) throws SQLException{
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
 
-        statement.setString(1, title);
-        statement.setString(2, artistId+"");
-        statement.setString(3, id+"");
+        statement.setString(1, album.title);
+        statement.setString(2, album.artistId+"");
+        statement.setInt(3, album.id);
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
@@ -71,5 +71,14 @@ public class AlbumsController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("SELECT * From Album WHERE title="+ title);
         statement.executeQuery();
+    }
+
+    public static Album find(int id) throws SQLException{
+
+        PreparedStatement statement = connection.getConn()
+                .prepareStatement("SELECT * From Album WHERE id="+ id);
+        ResultSet result = statement.executeQuery();
+        Album album = new Album(result.getString("title"), result.getInt("artistId"));
+        return album;
     }
 }

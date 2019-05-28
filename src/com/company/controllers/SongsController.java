@@ -1,5 +1,6 @@
 package com.company.controllers;
 
+import com.company.Album;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
 import com.company.Song;
@@ -41,7 +42,7 @@ public class SongsController {
         statement.setString(1, song.title);
         statement.setString(2, song.releaseDate);
         statement.setString(3, song.length);
-        statement.setString(4, song.albumId);
+        statement.setInt(4, song.album.id);
 
         int rowsInserted = statement.executeUpdate();
         if (rowsInserted > 0) {
@@ -49,15 +50,15 @@ public class SongsController {
         }
     }
 
-    public static void update(int id, String title, String releaseDate, String length, String albumId) throws SQLException {
+    public static void update(Song song) throws SQLException {
         String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=? WHERE Id=?";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, title);
-        statement.setString(2, releaseDate);
-        statement.setString(3, length);
-        statement.setString(4, albumId);
-        statement.setString(5, id + "");
+        statement.setString(1, song.title);
+        statement.setString(2, song.releaseDate);
+        statement.setString(3, song.length);
+        statement.setInt(4, song.album.id);
+        statement.setInt(5, song.id);
 
         int rowsUpdated = statement.executeUpdate();
         if (rowsUpdated > 0) {
@@ -75,5 +76,22 @@ public class SongsController {
         if (rowsDeleted > 0) {
             System.out.println("A song was deleted successfully!");
         }
+    }
+
+    public static Song find(int id) throws SQLException {
+        String sql = "SELECT * FROM Song WHERE id=?";
+
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
+
+        return new Song(
+                result.getString("title"),
+                result.getString("releaseDate"),
+                result.getString("length"),
+                AlbumsController.find(result.getInt("albumId"))
+        );
+
     }
 }

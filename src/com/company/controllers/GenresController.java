@@ -53,12 +53,12 @@ public class GenresController {
 
     }
 
-    public static void update(int id, String name) throws  SQLException{
+    public static void update(Genre genre) throws  SQLException{
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Genre SET name=? WHERE Id=?");
 
-        statement.setString(1, name);
-        statement.setString(3, id+"");
+        statement.setString(1, genre.name);
+        statement.setInt(3, genre.id);
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
@@ -70,5 +70,14 @@ public class GenresController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("SELECT * From Genre WHERE title="+ name);
         statement.executeQuery();
+    }
+
+    public static Genre find(int id) throws SQLException {
+        PreparedStatement statement = connection.getConn()
+                .prepareStatement("SELECT * From Genre WHERE id="+ id);
+        ResultSet result = statement.executeQuery();
+        String name = result.getString("name");
+
+        return new Genre(name);
     }
 }

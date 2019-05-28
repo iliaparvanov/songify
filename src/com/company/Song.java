@@ -8,17 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Song {
+    public int id;
     public final String title;
     public final String releaseDate;
     public final String length;
-    public final String albumId;
+    public final Album album;
 
-    private static DbConnection connection = DbConnectionFactory.getDbConnection();
-
-    public Song(String title, String releaseDate, String length, String albumId) throws SQLException {
+    public Song(String title, String releaseDate, String length, Album album) throws SQLException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;
-        this.albumId = albumId;
+        this.album = album;
     }
 }

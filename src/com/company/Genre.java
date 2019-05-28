@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Genre {
-    public final String name;
+    public int id;
 
-    static DbConnection connection = DbConnectionFactory.getDbConnection();
+    public final String name;
 
     public Genre(String name) {
         this.name = name;
