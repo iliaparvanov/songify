@@ -23,6 +23,3 @@ public class TableInitializer {
         System.out.println("Song table initilized");
     }
 }
-
-    първа българска армия 67
-        читалище искра

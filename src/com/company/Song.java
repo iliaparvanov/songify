@@ -1,5 +1,7 @@
 package com.company;
 
+import java.sql.SQLException;
+
 public class Song {
     private final String title;
     private final String releaseDate;
@@ -17,7 +19,9 @@ public class Song {
         this.genre = genre;
     }
 
-    private void create() {
-
+    private void create() throws SQLException {
+        connection.insertStatment(
+                "INSERT INTO Song VALUES(" + title + "," + releaseDate + "," + lenght + "," + albumId + ");"
+        );
     }
 }
