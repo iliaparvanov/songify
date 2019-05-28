@@ -24,4 +24,13 @@ public class TableInitializer {
 
         System.out.println("Song table initilized");
     }
+
+    public static void createArtistTable() throws SQLException {
+        connection.insertStatement(
+                "CREATE TABLE Artist(" +
+                "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                "Name VARCHAR(150) NOT NULL);");
+
+        System.out.println("Artist table initialised");
+    }
 }

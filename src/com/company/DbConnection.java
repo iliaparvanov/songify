@@ -8,6 +8,11 @@ public class DbConnection {
 
     private static final String dbDriver = "com.mysql.cj.jdbc.Driver";
     private static final String connectionString = "jdbc:mysql://localhost:3306/";
+
+    public Connection getCon() {
+        return con;
+    }
+
     private Connection con;
     private String dbName;
     private String user;
@@ -44,6 +49,10 @@ public class DbConnection {
     public void insertStatement(String sql) throws SQLException {
         Statement statement = con.createStatement();
         statement.execute(sql);
+    }
+
+    public int update(PreparedStatement statement) throws SQLException {
+        return statement.executeUpdate();
     }
 
     public ResultSet makeQuery(String query) throws SQLException {
