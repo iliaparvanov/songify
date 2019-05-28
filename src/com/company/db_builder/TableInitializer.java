@@ -26,7 +26,7 @@ public class TableInitializer {
         connection.insertStatment(
                 "create table Genre ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                        "Name VARCHAR(150) NOT NULL);");
+                        "name VARCHAR(150) NOT NULL);");
 //
         System.out.println("Genre table initilized");
     }
