@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SongsController {
 
@@ -79,20 +80,9 @@ public class SongsController {
         }
     }
 
-    public static Song find(int id) throws SQLException {
-        String sql = "SELECT * FROM Song WHERE id=?";
-
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setInt(1, id);
-
-        ResultSet result = statement.executeQuery();
-
-        return new Song(
-                result.getString("title"),
-                result.getString("releaseDate"),
-                result.getString("length"),
-                AlbumsController.find(result.getInt("albumId"))
-        );
-
+    public static List<Song> find(String title) throws SQLException {
+        return index().stream()
+                                  .filter(s -> s.title == title)
+                                  .collect(Collectors.toList());
     }
 }

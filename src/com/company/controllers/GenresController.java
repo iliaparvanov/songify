@@ -8,12 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenresController {
 
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
-    public static void index() throws SQLException {
+    public static List<Genre> index() throws SQLException {
         String sql = "SELECT * FROM Song";
 
         Statement statement = connection.getConn().createStatement();
@@ -21,12 +24,12 @@ public class GenresController {
 
         int count = 0;
 
-        while (result.next()){
-            String name = result.getString("name");
+        List<Genre> genres = new ArrayList<>();
 
-            String output = "Genre #%d: %s";
-            System.out.println(String.format(output, ++count, name));
+        while (result.next()){
+            genres.add(new Genre(result.getString("name")));
         }
+        return genres;
     }
 
     public static void create(Genre genre) throws SQLException{
@@ -72,12 +75,7 @@ public class GenresController {
         statement.executeQuery();
     }
 
-    public static Genre find(int id) throws SQLException {
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("SELECT * From Genre WHERE id="+ id);
-        ResultSet result = statement.executeQuery();
-        String name = result.getString("name");
-
-        return new Genre(name);
+    public static List<Genre> find(String name) throws SQLException {
+        return index().stream().filter(g -> g.name == name).collect(Collectors.toList());
     }
 }

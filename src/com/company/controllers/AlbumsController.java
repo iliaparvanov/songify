@@ -8,25 +8,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlbumsController {
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
-    public static void index() throws SQLException {
-        String sql = "SELECT * FROM Song";
+    public static List<Album> index() throws SQLException {
+        String sql = "SELECT * FROM Album";
 
         Statement statement = connection.getConn().createStatement();
         ResultSet result = statement.executeQuery(sql);
 
         int count = 0;
 
+        List<Album> albums = new ArrayList<>();
+
         while (result.next()){
             String title = result.getString("title");
-            String artistId = result.getString("artistId");
+            int artistId = result.getInt("artistId");
 
-            String output = "Song #%d: %s - %s";
-            System.out.println(String.format(output, ++count, title, artistId));
+            albums.add(new Album(title, artistId));
         }
+        return albums;
     }
 
     public static void create(Album album) throws SQLException{
@@ -73,12 +78,7 @@ public class AlbumsController {
         statement.executeQuery();
     }
 
-    public static Album find(int id) throws SQLException{
-
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("SELECT * From Album WHERE id="+ id);
-        ResultSet result = statement.executeQuery();
-        Album album = new Album(result.getString("title"), result.getInt("artistId"));
-        return album;
+    public static List<Album> find(String title) throws SQLException{
+        return index().stream().filter(a -> a.title == title).collect(Collectors.toList())
     }
 }
