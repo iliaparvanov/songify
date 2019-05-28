@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class Genre {
 
     private final String name;
-    static DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
+    static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public Genre(String name) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Genre {
     public static void index() throws SQLException {
         String sql = "SELECT * FROM Song";
 
-        Statement statement = connection.getCon().createStatement();
+        Statement statement = connection.getConn().createStatement();
         ResultSet result = statement.executeQuery(sql);
 
         int count = 0;
@@ -32,7 +32,7 @@ public class Genre {
 
     private void create() throws SQLException{
 
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Genre (name) VALUES("+ this.name+")");
 
 
@@ -44,7 +44,7 @@ public class Genre {
     }
     private void delete(int id) throws SQLException{
 
-        PreparedStatement statement = connection.getCon().prepareStatement("DELETE FROM Genre WHERE id = ?");
+        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Genre WHERE id = ?");
         statement.setString(1, id+"");
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
@@ -53,7 +53,7 @@ public class Genre {
 
     }
     private void update(int id, String name) throws  SQLException{
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Genre SET name=? WHERE Id=?");
 
         statement.setString(1, name);
@@ -65,7 +65,7 @@ public class Genre {
         }
     }
     private void show(String name) throws  SQLException{
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("SELECT * From Genre WHERE title="+ name);
         statement.executeQuery();
     }

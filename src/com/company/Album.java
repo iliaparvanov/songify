@@ -12,7 +12,7 @@ public class Album {
     private final String title;
     private final int artistId;
 
-    static DbConnection connection = new DbConnection("Songify", "xothas", "asdf");
+    static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public Album(String title, int artistId) {
         this.title = title;
@@ -22,7 +22,7 @@ public class Album {
     public static void index() throws SQLException {
         String sql = "SELECT * FROM Song";
 
-        Statement statement = connection.getCon().createStatement();
+        Statement statement = connection.getConn().createStatement();
         ResultSet result = statement.executeQuery(sql);
 
         int count = 0;
@@ -37,7 +37,7 @@ public class Album {
     }
 
     private void create() throws SQLException{
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
         statement.setString(1, this.title);
         statement.setString(2, this.artistId+"");
@@ -50,7 +50,7 @@ public class Album {
     }
     private void delete(int id) throws SQLException {
 
-        PreparedStatement statement = connection.getCon().prepareStatement("DELETE FROM Album WHERE id = ?");
+        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
         statement.setString(1, id+"");
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
@@ -58,7 +58,7 @@ public class Album {
         }
     }
     private void update(int id, String title, int artistId) throws SQLException{
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
 
         statement.setString(1, title);
@@ -72,7 +72,7 @@ public class Album {
     }
     private void show(String title) throws SQLException{
 
-        PreparedStatement statement = connection.getCon()
+        PreparedStatement statement = connection.getConn()
                 .prepareStatement("SELECT * From Album WHERE title="+ title);
         statement.executeQuery();
 

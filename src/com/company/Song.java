@@ -13,7 +13,7 @@ public class Song {
     private final String length;
     private final String albumId;
 
-    private static DbConnection connection = new DbConnection("Songify", "root", "root");
+    private static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public Song(String title, String releaseDate, String length, String albumId) throws SQLException {
         this.title = title;
@@ -26,7 +26,7 @@ public class Song {
     public static void index() throws SQLException {
         String sql = "SELECT * FROM Song";
 
-        Statement statement = connection.getCon().createStatement();
+        Statement statement = connection.getConn().createStatement();
         ResultSet result = statement.executeQuery(sql);
 
         int count = 0;
@@ -46,7 +46,7 @@ public class Song {
 
         String sql = "INSERT INTO Song(title, releaseDate, length, albumId) VALUES (?, ?, ?, ?)";
 
-        PreparedStatement statement = connection.getCon().prepareStatement(sql);
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
         statement.setString(1, title);
         statement.setString(2, releaseDate);
         statement.setString(3, length);
@@ -61,7 +61,7 @@ public class Song {
     public static void update(int id, String title, String releaseDate, String length, String albumId) throws SQLException {
         String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=? WHERE Id=?";
 
-        PreparedStatement statement = connection.getCon().prepareStatement(sql);
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
         statement.setString(1, title);
         statement.setString(2, releaseDate);
         statement.setString(3, length);
@@ -77,7 +77,7 @@ public class Song {
     public static void delete(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE id=?";
 
-        PreparedStatement statement = connection.getCon().prepareStatement(sql);
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
         statement.setString(1, id + "");
 
         int rowsDeleted = statement.executeUpdate();
