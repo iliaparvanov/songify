@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82236869-8fb9-4a25-935b-7dfca75710c9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/company/Artist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/GenresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/GenresController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/SongsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/SongsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,13 +27,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+            <state relative-caret-position="268">
+              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Artist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
+              <folding>
+                <element signature="e#106#107#0" expanded="true" />
+                <element signature="e#138#139#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,7 +97,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
@@ -103,19 +114,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="114">
               <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/DbConnection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#423#424#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -164,10 +162,11 @@
         <option value="$PROJECT_DIR$/src/com/company/Genre.java" />
         <option value="$PROJECT_DIR$/src/com/company/Album.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" />
         <option value="$PROJECT_DIR$/src/com/company/controllers/GenresController.java" />
         <option value="$PROJECT_DIR$/src/com/company/controllers/SongsController.java" />
         <option value="$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Artist.java" />
+        <option value="$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java" />
       </list>
     </option>
   </component>
@@ -229,7 +228,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559063318498" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559063580033" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -387,10 +386,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/SongsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        <state relative-caret-position="247">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -407,20 +416,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/SongsController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Artist.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+        <state relative-caret-position="171">
+          <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#106#107#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/AlbumsController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/controllers/ArtistsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+        <state relative-caret-position="268">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
