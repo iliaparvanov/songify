@@ -1,16 +1,18 @@
 package com.company.db_builder;
 
 import com.company.DbConnection;
+import com.company.DbConnectionFactory;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class TableInitializer {
 
-    final static DbConnection connection = new DbConnection("Songify", "root", "root");
+    final static DbConnection connection = DbConnectionFactory.getIliaDbConnection();
 
     public static void createSongTable() throws SQLException {
-        connection.insertStatment(
+        connection.insertStatement(
                             "create table Song ( " +
                         "Id int not null auto_increment primary key," +
                         "title varchar(20)," +
@@ -23,6 +25,3 @@ public class TableInitializer {
         System.out.println("Song table initilized");
     }
 }
-
-    първа българска армия 67
-        читалище искра

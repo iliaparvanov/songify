@@ -1,6 +1,7 @@
 package com.company;
 
 import java.sql.*;
+import java.util.Properties;
 
 
 public class DbConnection {
@@ -11,11 +12,13 @@ public class DbConnection {
     private String dbName;
     private String user;
     private String pass;
+    private Properties info;
 
-    public DbConnection(String dbName, String user, String pass) {
+    public DbConnection(String dbName, String user, String pass, Properties info) {
         this.dbName = dbName;
         this.user = user;
         this.pass = pass;
+        this.info = info;
         try {
             connect();
         } catch (SQLException e) {
@@ -29,12 +32,16 @@ public class DbConnection {
 
         Class.forName(dbDriver);
 
-        con = DriverManager.getConnection(connectionString + dbName, user, pass);
+        Properties properties = new java.util.Properties();
+        properties.put("user", user);
+        properties.put("password", pass);
+        properties.putAll(info);
+        con = DriverManager.getConnection(connectionString + dbName, properties);
 
         System.out.println("Connected to " + dbName);
     }
 
-    public void insertStatment(String sql) throws SQLException {
+    public void insertStatement(String sql) throws SQLException {
         Statement statement = con.createStatement();
         statement.execute(sql);
     }

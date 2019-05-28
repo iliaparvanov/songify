@@ -7,7 +7,7 @@ public class Song {
     private final String albumId;
     private final String genre;
 
-    DbConnection connection = new DbConnection("Songify", "root", "root");
+    DbConnection connection = DbConnectionFactory.getIliaDbConnection();
 
     public Song(String title, String releaseDate, String lenght, String albumId, String genre) {
         this.title = title;
