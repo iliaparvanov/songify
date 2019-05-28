@@ -12,6 +12,10 @@ public class DbConnection {
     private String user;
     private String pass;
 
+    public Connection getCon() {
+        return con;
+    }
+
     public DbConnection(String dbName, String user, String pass) {
         this.dbName = dbName;
         this.user = user;
