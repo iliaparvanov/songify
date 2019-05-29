@@ -51,7 +51,7 @@ public class AlbumsController {
         statement.setString(1, id+"");
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
-            System.out.println("Genre deleted succesfully");
+            System.out.println("Album deleted succesfully");
         }
     }
 
@@ -65,7 +65,7 @@ public class AlbumsController {
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
-            System.out.println("Genre updated succesfully");
+            System.out.println("Album updated succesfully");
         }
     }
 
@@ -77,8 +77,8 @@ public class AlbumsController {
     }
 
     public static List<Album> find(String title) throws SQLException{
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title = ?");
-        statement.setString(1, title);
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title LIKE ?");
+        statement.setString(1, "%" + title  + "%");
 
         ResultSet result = statement.executeQuery();
         List<Album> albums = new ArrayList<>();

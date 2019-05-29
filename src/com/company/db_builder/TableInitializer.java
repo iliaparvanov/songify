@@ -27,10 +27,10 @@ public class TableInitializer {
         Album vertigo = AlbumsController.create("vertigo", eden);
         Album billieAlbum = AlbumsController.create("WHEN WE ALL FALL ASLEEP WHERE DO WE GO", billie);
 
-        SongsController.create("wrong", "2018-01-19", "1:04", vertigo);
-        SongsController.create("take care", "2018-01-19", "3:16", vertigo);
-        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum);
-        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum);
+        SongsController.create("wrong", "2018-01-19", "1:04", vertigo, eden);
+        SongsController.create("take care", "2018-01-19", "3:16", vertigo, eden);
+        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum, billie);
+        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, billie);
     }
 
     public static void createAllTables() throws SQLException {

@@ -13,7 +13,8 @@ public class Song {
     public  Album album;
     public  Artist artist;
 
-    public Song(String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
+    public Song(int id, String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
+        this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;
