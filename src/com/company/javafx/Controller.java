@@ -1,3 +1,4 @@
+
 package com.company.javafx;
 
 import com.company.Artist;
