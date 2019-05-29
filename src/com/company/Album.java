@@ -10,4 +10,12 @@ public class Album {
         this.title = title;
         this.artist = artist;
     }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "title='" + title + '\'' +
+                ", artist=" + artist +
+                '}';
+    }
 }

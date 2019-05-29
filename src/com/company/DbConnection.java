@@ -41,7 +41,5 @@ public class DbConnection {
         properties.put("password", pass);
         properties.putAll(info);
         conn = DriverManager.getConnection(connectionString + dbName, properties);
-
-        System.out.println("Connected to " + dbName);
     }
 }
