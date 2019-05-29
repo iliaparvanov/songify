@@ -1,7 +1,13 @@
 package com.company.db_builder;
 
+import com.company.Album;
+import com.company.Artist;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
+import com.company.controllers.AlbumsController;
+import com.company.controllers.ArtistsController;
+import com.company.controllers.GenresController;
+import com.company.controllers.SongsController;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +15,23 @@ import java.sql.Statement;
 public class TableInitializer {
 
     final static DbConnection connection = DbConnectionFactory.getDbConnection();
+
+    public static void seedDb() throws SQLException {
+        GenresController.create("Indie");
+        GenresController.create("Pop");
+
+        Artist eden = ArtistsController.create("EDEN");
+        ArtistsController.create("Alec Benjamin");
+        Artist billie = ArtistsController.create("Billie Eilish");
+
+        Album vertigo = AlbumsController.create("vertigo", eden);
+        Album billieAlbum = AlbumsController.create("WHEN WE ALL FALL ASLEEP WHERE DO WE GO", billie);
+
+        SongsController.create("wrong", "2018-01-19", "1:04", vertigo);
+        SongsController.create("take care", "2018-01-19", "3:16", vertigo);
+        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum);
+        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum);
+    }
 
     public static void createAllTables() throws SQLException {
         TableInitializer.createGenreTable();

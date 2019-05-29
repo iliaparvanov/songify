@@ -13,16 +13,23 @@ public class ArtistsController {
 
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
-    public static void create(String name) throws SQLException {
+    public static Artist create(String name) throws SQLException {
         String sql = "INSERT INTO Artist(Name) VALUES (?)";
 
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
+        PreparedStatement statement = connection.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) {
+        int insertedRows = statement.executeUpdate();
+        if (insertedRows > 0) {
             System.out.println("A new artist was created successfully!");
         }
+
+        int id = 0;
+        ResultSet rs = statement.getGeneratedKeys();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        return new Artist(id, name);
     }
 
     public static void show() {
@@ -38,26 +45,18 @@ public class ArtistsController {
         List<Artist> artists = new ArrayList<>();
         while (result.next()) {
             artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
+//            System.out.println("Name of result: " + result.getString("Name"));
         }
 
         return artists;
     }
 
-    public static void update(Artist artist) throws SQLException {
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("UPDATE Artist SET name=? WHERE Id=?");
+    public static void update() {
 
-        statement.setString(1, artist.name);
-        statement.setInt(2, artist.id);
-
-        int rowsUpdated = statement.executeUpdate();
-        if(rowsUpdated > 0){
-            System.out.println("Artist updated succesfully");
-        }
     }
 
     public static void delete(int id) throws SQLException {
-        String sql = "DELETE FROM Artist WHERE id=?";
+        String sql = "DELETE FROM Song WHERE id=?";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
         statement.setString(1, id + "");
@@ -68,20 +67,20 @@ public class ArtistsController {
         }
     }
 
-    public static List<Artist> find(String name) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name like ?");
-        statement.setString(1, "%" + name + "%");
+    public static Artist find(String name) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Name= ?");
+        statement.setString(1, name);
 
         ResultSet result = statement.executeQuery();
         List<Artist> artists = new ArrayList<>();
         while (result.next()) {
             artists.add(new Artist(result.getInt("Id"), result.getString("Name")));
         }
-        return artists;
+        return artists.get(0);
     }
 
     public static Artist find(int id) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Id LIKE ?");
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Artist WHERE Id = ?");
         statement.setInt(1, id);
 
         ResultSet result = statement.executeQuery();

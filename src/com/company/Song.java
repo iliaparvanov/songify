@@ -1,7 +1,5 @@
 package com.company;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +13,7 @@ public class Song {
     public  Album album;
     public  Artist artist;
 
-    public Song(int id, String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
-        this.id = id;
+    public Song(String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;

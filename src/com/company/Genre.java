@@ -10,16 +10,7 @@ public class Genre {
 
     public String name;
 
-    public Genre(String name) {this.name = name;}
-    public Genre(int id, String name) {
-        this.id = id;
+    public Genre(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Genre{" +
-                "name='" + name + '\'' +
-                '}';
     }
 }

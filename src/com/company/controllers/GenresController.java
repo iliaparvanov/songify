@@ -1,6 +1,5 @@
 package com.company.controllers;
 
-import com.company.Artist;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
 import com.company.Genre;
@@ -18,10 +17,12 @@ public class GenresController {
     private final static DbConnection connection = DbConnectionFactory.getDbConnection();
 
     public static List<Genre> index() throws SQLException {
-        String sql = "SELECT * FROM Genre";
+        String sql = "SELECT * FROM Song";
 
         Statement statement = connection.getConn().createStatement();
         ResultSet result = statement.executeQuery(sql);
+
+        int count = 0;
 
         List<Genre> genres = new ArrayList<>();
 
@@ -40,7 +41,7 @@ public class GenresController {
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
-            System.out.println("Genre inserted succesfully");
+            System.out.println("Album inserted succesfully");
         }
     }
 
@@ -60,7 +61,7 @@ public class GenresController {
                 .prepareStatement("UPDATE Genre SET name=? WHERE Id=?");
 
         statement.setString(1, genre.name);
-        statement.setInt(2, genre.id);
+        statement.setInt(3, genre.id);
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
@@ -75,15 +76,6 @@ public class GenresController {
     }
 
     public static Genre find(String name) throws SQLException {
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Genre WHERE name like ?");
-        statement.setString(1, "%" + name + "%");
-
-        ResultSet result = statement.executeQuery();
-        if(!result.next()) {
-            return null;
-        }
-        Genre genre = new Genre(result.getInt("Id"), result.getString("name"));
-
-        return genre;
+        return index().stream().filter(g -> g.name == name).collect(Collectors.toList()).get(0);
     }
 }

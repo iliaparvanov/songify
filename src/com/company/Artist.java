@@ -9,10 +9,10 @@ public class Artist {
         this.name = name;
     }
 
+    private final DbConnection connection = DbConnectionFactory.getDbConnection();
+
     @Override
     public String toString() {
         return name;
     }
-
-    DbConnection connection = DbConnectionFactory.getDbConnection();
 }

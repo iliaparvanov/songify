@@ -5,10 +5,7 @@ import com.company.Artist;
 import com.company.DbConnection;
 import com.company.DbConnectionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class AlbumsController {
         return albums;
     }
 
-    public static void create(String title, Artist artist) throws SQLException{
+    public static Album create(String title, Artist artist) throws SQLException{
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("INSERT INTO Album (title, artistId) VALUES(?, ?)");
         statement.setString(1, title);
@@ -45,6 +42,7 @@ public class AlbumsController {
             System.out.println("Genre inserted succesfully");
         }
 
+        return findFirst(title, artist);
     }
 
     public static void delete(int id) throws SQLException {
@@ -67,7 +65,7 @@ public class AlbumsController {
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
-            System.out.println("Album updated succesfully");
+            System.out.println("Genre updated succesfully");
         }
     }
 
@@ -79,8 +77,8 @@ public class AlbumsController {
     }
 
     public static List<Album> find(String title) throws SQLException{
-        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title like ?");
-        statement.setString(1, "%" + title + "%");
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title = ?");
+        statement.setString(1, title);
 
         ResultSet result = statement.executeQuery();
         List<Album> albums = new ArrayList<>();
@@ -88,6 +86,19 @@ public class AlbumsController {
             albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
         }
         return albums;
+    }
+
+    public static Album findFirst(String title, Artist artist) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title = ? AND ArtistID = ?");
+        statement.setString(1, title);
+        statement.setInt(2, artist.id);
+
+        ResultSet result = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+        while (result.next()) {
+            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
+        }
+        return albums.get(0);
     }
 
     public static Album find(int id) throws SQLException {
