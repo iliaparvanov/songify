@@ -62,10 +62,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
-            songTableView.setItems(FXCollections.observableList(SongsController.index()));
-            albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
-            genreTableView.setItems(FXCollections.observableList(GenresController.index()));
+            fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +82,7 @@ public class Controller implements Initializable {
 
         albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
         albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
+        albumTitleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         genreNameColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("name"));
         genreNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -95,12 +93,21 @@ public class Controller implements Initializable {
         Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
         selectedArtist.setName(editted.getNewValue().toString());
         ArtistsController.update(selectedArtist);
+        fetchAllFromDB();
     }
 
     public void changeGenreNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
         Genre selectedGenre = genreTableView.getSelectionModel().getSelectedItem();
         selectedGenre.setName(editted.getNewValue().toString());
         GenresController.update(selectedGenre);
+        fetchAllFromDB();
+    }
+
+    public void changeAlbumTitleCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
+        Album selectedAlbum = albumTableView.getSelectionModel().getSelectedItem();
+        selectedAlbum.setTitle(editted.getNewValue().toString());
+        AlbumsController.update(selectedAlbum);
+        fetchAllFromDB();
     }
 
     public void deleteArtists() throws SQLException {
@@ -110,7 +117,7 @@ public class Controller implements Initializable {
             ArtistsController.delete(a.id);
         }
         try {
-            artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+            fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,7 +137,7 @@ public class Controller implements Initializable {
             SongsController.delete(s.id);
         }
         try {
-            songTableView.setItems(FXCollections.observableList(SongsController.index()));
+            fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,10 +150,11 @@ public class Controller implements Initializable {
             AlbumsController.delete(a.id);
         }
         try {
-            albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
+            fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public void deleteGenres() throws SQLException {
@@ -156,9 +164,16 @@ public class Controller implements Initializable {
             GenresController.delete(g.id);
         }
         try {
-            genreTableView.setItems(FXCollections.observableList(GenresController.index()));
+            fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fetchAllFromDB() throws SQLException {
+        artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
+        songTableView.setItems(FXCollections.observableList(SongsController.index()));
+        albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
+        genreTableView.setItems(FXCollections.observableList(GenresController.index()));
     }
 }

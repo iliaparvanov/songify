@@ -84,9 +84,9 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TableView fx:id="albumTableView" prefHeight="200.0" prefWidth="600.0">
+            <TableView fx:id="albumTableView" editable="true" prefHeight="200.0" prefWidth="600.0">
               <columns>
-                <TableColumn fx:id="albumTitleColumn" minWidth="20.0" prefWidth="127.0" text="Title" />
+                <TableColumn fx:id="albumTitleColumn" minWidth="20.0" onEditCommit="#changeAlbumTitleCellEvent" prefWidth="127.0" text="Title" />
                   <TableColumn fx:id="albumArtistColumn" prefWidth="123.0" text="Artist" />
               </columns>
             </TableView>
