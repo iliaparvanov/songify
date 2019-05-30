@@ -3,9 +3,11 @@ package com.company.javafx;
 
 import com.company.Album;
 import com.company.Artist;
+import com.company.Genre;
 import com.company.Song;
 import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
+import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,12 +53,19 @@ public class Controller implements Initializable {
     @FXML
     public TableColumn<Album, Artist> albumArtistColumn;
 
+    @FXML
+    public TableView<Genre> genreTableView;
+    @FXML
+    public TableColumn<Genre, String> genreNameColumn;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
             songTableView.setItems(FXCollections.observableList(SongsController.index()));
             albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
+            genreTableView.setItems(FXCollections.observableList(GenresController.index()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,14 +81,26 @@ public class Controller implements Initializable {
         songAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, Album>("album"));
         songArtistsColumn.setCellValueFactory(new PropertyValueFactory<Song, List<Artist>>("artists"));
 
+        albumTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
         albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
+
+        genreNameColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("name"));
+        genreNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     }
+
 
     public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
         Artist selectedArtist = artistTableView.getSelectionModel().getSelectedItem();
         selectedArtist.setName(editted.getNewValue().toString());
         ArtistsController.update(selectedArtist);
+    }
+
+    public void changeGenreNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {
+        Genre selectedGenre = genreTableView.getSelectionModel().getSelectedItem();
+        selectedGenre.setName(editted.getNewValue().toString());
+        GenresController.update(selectedGenre);
     }
 
     public void deleteArtists() throws SQLException {
@@ -110,6 +131,19 @@ public class Controller implements Initializable {
         }
         try {
             songTableView.setItems(FXCollections.observableList(SongsController.index()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAlbums() throws SQLException {
+        ObservableList<Album> selectedAlbums;
+        selectedAlbums = albumTableView.getSelectionModel().getSelectedItems();
+        for (Album a : selectedAlbums) {
+            AlbumsController.delete(a.id);
+        }
+        try {
+            albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

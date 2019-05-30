@@ -79,10 +79,26 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
          <children>
+            <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="200.0" text="Albums">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
             <TableView fx:id="albumTableView" prefHeight="200.0" prefWidth="600.0">
               <columns>
                 <TableColumn fx:id="albumTitleColumn" minWidth="20.0" prefWidth="127.0" text="Title" />
                   <TableColumn fx:id="albumArtistColumn" prefWidth="123.0" text="Artist" />
+              </columns>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#deleteAlbums" prefHeight="25.0" prefWidth="197.0" text="Delete album" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label text="Genres" />
+            <TableView fx:id="genreTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="genreNameColumn" onEditCommit="#changeGenreNameCellEvent" prefWidth="186.0" text="Name" />
               </columns>
             </TableView>
          </children>

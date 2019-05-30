@@ -125,7 +125,7 @@ public class Main {
                                         break;
                                     case "update":
                                         if (scanner.next().equals("name:")) {
-                                            genre.name = scanner.next();
+                                            genre.setName(scanner.next());
                                         }
                                         break;
 

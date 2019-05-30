@@ -27,7 +27,7 @@ public class GenresController {
         List<Genre> genres = new ArrayList<>();
 
         while (result.next()){
-            genres.add(new Genre(result.getString("name")));
+            genres.add(new Genre(result.getInt(1), result.getString("name")));
         }
         return genres;
     }
@@ -60,12 +60,16 @@ public class GenresController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Genre SET name=? WHERE Id=?");
 
-        statement.setString(1, genre.name);
+        statement.setString(1, genre.getName());
         statement.setInt(2, genre.id);
+
+        System.out.println("Genre name: " + genre.getName() + "; genre id: " + genre.id);
 
         int rowsUpdated = statement.executeUpdate();
         if(rowsUpdated > 0){
             System.out.println("Genre updated succesfully");
+        }  else {
+            System.out.println("Could not update Genre");
         }
     }
 
