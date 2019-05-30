@@ -59,6 +59,8 @@ public class Controller implements Initializable {
     public TableView<Genre> genreTableView;
     @FXML
     public TableColumn<Genre, String> genreNameColumn;
+    @FXML
+    public TextField genreNameTextField;
 
 
     @Override
@@ -176,6 +178,13 @@ public class Controller implements Initializable {
             fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createGenre() throws SQLException {
+        if (!genreNameTextField.getText().toString().equals("")) {
+            Genre genre = GenresController.create(genreNameTextField.getText().toString());
+            genreTableView.getItems().add(genre);
         }
     }
 

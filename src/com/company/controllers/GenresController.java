@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GenresController {
 
@@ -32,17 +31,24 @@ public class GenresController {
         return genres;
     }
 
-    public static void create(String name) throws SQLException{
+    public static Genre create(String name) throws SQLException{
 
         PreparedStatement statement = connection.getConn()
-                .prepareStatement("INSERT INTO Genre (name) VALUES(?)");
+                .prepareStatement("INSERT INTO Genre (name) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
 
         statement.setString(1, name);
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
-            System.out.println("Genreinserted succesfully");
+            System.out.println("Genre inserted succesfully");
         }
+
+        int id = 0;
+        ResultSet rs = statement.getGeneratedKeys();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        return new Genre(id, name);
     }
 
     public static void delete(int id) throws SQLException{
