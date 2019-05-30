@@ -50,9 +50,9 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TableView fx:id="songTableView" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="songTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="songTitleColumn" prefWidth="75.0" text="Title" />
+                <TableColumn fx:id="songTitleColumn" onEditCommit="#changeSongTitleCellEvent" prefWidth="75.0" text="Title" />
                 <TableColumn fx:id="songReleaseDateColumn" prefWidth="75.0" text="Release date" />
                   <TableColumn fx:id="songLengthColumn" prefWidth="75.0" text="Length" />
                   <TableColumn fx:id="songAlbumColumn" prefWidth="75.0" text="Album" />
@@ -60,7 +60,12 @@
                   <TableColumn fx:id="songGenreColumn" prefWidth="75.0" text="Genre" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#deleteSongs" text="Delete song(s)" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#deleteSongs" text="Delete song(s)" />
+                  <Button mnemonicParsing="false" onAction="#changeSongGenre" text="Change genre" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="1">
