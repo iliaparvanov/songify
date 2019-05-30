@@ -7,6 +7,7 @@ import com.company.controllers.SongsController;
 import com.company.db_builder.TableInitializer;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -89,7 +90,7 @@ public class Main {
                                             } else if (parameter.equals("artist:")) {
                                                 List<Artist> artists = ArtistsController.find(scanner.next());
                                                 int choice = options(artists);
-                                                song.artist = artists.get(choice);
+                                                song.artists = Arrays.asList(artists.get(choice));
                                             }
 
                                             if (parameter.contains(";")) {
@@ -251,7 +252,7 @@ public class Main {
                             choice = options(artists);
                             Artist artist = artists.get(choice);
 
-                            SongsController.create(name, releaseDate, length, album, artist);
+                            SongsController.create(name, releaseDate, length, album, Arrays.asList(artist));
                             break;
 
                         case "genre":

@@ -25,8 +25,11 @@ public class Song {
 
     @Override
     public String toString() {
-        String aStrings = String.valueOf(artists.stream().map((a) -> a.toString()).reduce((left, right) -> left + ", " + right));
-        return  title + ", by" + aStrings;
+        String aStrings = "";
+        for (Artist a : artists) {
+            aStrings = aStrings + artists.toString() + " ";
+        }
+        return  title + ", by " + aStrings;
 
     }
 }

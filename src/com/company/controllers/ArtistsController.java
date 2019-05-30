@@ -99,4 +99,15 @@ public class ArtistsController {
         }
         return artist;
     }
+
+    public static List<Artist> findBySongId(int songId) throws SQLException {
+        List<Artist> artists = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.getConn().prepareStatement("SELECT * FROM ArtistSong WHERE SongId = ?");
+        preparedStatement.setInt(1, songId);
+        ResultSet joinTableResult = preparedStatement.executeQuery();
+        while (joinTableResult.next()) {
+            artists.add(ArtistsController.find(joinTableResult.getInt("ArtistId")));
+        }
+        return artists;
+    }
 }

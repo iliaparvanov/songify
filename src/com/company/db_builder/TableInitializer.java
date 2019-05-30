@@ -11,6 +11,8 @@ import com.company.controllers.SongsController;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TableInitializer {
 
@@ -27,10 +29,10 @@ public class TableInitializer {
         Album vertigo = AlbumsController.create("vertigo", eden);
         Album billieAlbum = AlbumsController.create("WHEN WE ALL FALL ASLEEP WHERE DO WE GO", billie);
 
-        SongsController.create("wrong", "2018-01-19", "1:04", vertigo, eden);
-        SongsController.create("take care", "2018-01-19", "3:16", vertigo, eden);
-        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum, billie);
-        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, billie);
+        SongsController.create("wrong", "2018-01-19", "1:04", vertigo, Arrays.asList(eden));
+        SongsController.create("take care", "2018-01-19", "3:16", vertigo, Arrays.asList(eden));
+        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum, Arrays.asList(billie));
+        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, Arrays.asList(billie));
     }
 
     public static void createAllTables() throws SQLException {
@@ -48,9 +50,8 @@ public class TableInitializer {
                         "title varchar(20)," +
                         "releaseDate date," +
                         "length varchar(4)," +
-                        "albumId int,"+
-                        "artistId int);");
-//                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
+                        "albumId int," +
+                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
 
 
         System.out.println("Song table initilized");
@@ -69,8 +70,8 @@ public class TableInitializer {
                 "create table Album ( " +
                         "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
                         "Title VARCHAR(150) NOT NULL," +
-                        "ArtistID INTEGER NOT NULL);");
-//                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
+                        "ArtistID INTEGER NOT NULL);" +
+                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
 
 
         System.out.println("Album table initilized");

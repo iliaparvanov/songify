@@ -26,11 +26,12 @@ public class SongsController {
 
         List<Song> songs = new ArrayList<>();
         while (result.next()){
-            songs.add(new Song(result.getInt("Id"), result.getString(2), result.getString(3), result.getString("length"),
-                    AlbumsController.find(result.getInt("albumId")), ArtistsController.find(result.getInt("artistId"))));
 //            String output = "Song #%d: %s - %s - %s - %s";
 //            System.out.println(String.format(output, ++count, title, releasedDate, length, albumId));
-//            System.out.println("DEBUG");
+            // Get all the artists from the join table
+
+            songs.add(new Song(result.getInt("Id"), result.getString(2), result.getString(3), result.getString("length"),
+                    AlbumsController.find(result.getInt("albumId")), ArtistsController.findBySongId(result.getInt("Id"))));
         }
 
         return songs;
@@ -42,7 +43,7 @@ public class SongsController {
         try {
 
 
-            String sql = "INSERT INTO Song(title, releaseDate, length, albumId, artistId) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Song(title, releaseDate, length, albumId) VALUES (?, ?, ?, ?)";
 
             PreparedStatement statement = connection.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, title);
@@ -120,7 +121,12 @@ public class SongsController {
         ResultSet result = statement.executeQuery();
         List<Song> songs = new ArrayList<>();
         while (result.next()) {
-            songs.add(new Song(result.getInt("Id"), result.getString("title"), result.getString("releaseDate"), result.getString("length"), AlbumsController.find(result.getInt("albumId")), ArtistsController.find(result.getInt("artistId"))));
+            songs.add(new Song(result.getInt("Id"),
+                    result.getString("title"),
+                    result.getString("releaseDate"),
+                    result.getString("length"),
+                    AlbumsController.find(result.getInt("albumId")),
+                    ArtistsController.findBySongId(result.getInt("Id"))));
         }
         return songs;
     }
