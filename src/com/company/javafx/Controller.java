@@ -148,4 +148,17 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void deleteGenres() throws SQLException {
+        ObservableList<Genre> selectedGenres;
+        selectedGenres = genreTableView.getSelectionModel().getSelectedItems();
+        for (Genre g : selectedGenres) {
+            GenresController.delete(g.id);
+        }
+        try {
+            genreTableView.setItems(FXCollections.observableList(GenresController.index()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

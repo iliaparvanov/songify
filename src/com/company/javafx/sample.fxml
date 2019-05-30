@@ -37,7 +37,7 @@
                 <TableColumn fx:id="artistNameColumn" onEditCommit="#changeArtistNameCellEvent" prefWidth="192.0" text="Name" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#deleteArtists" prefHeight="25.0" prefWidth="188.0" text="Delete artist(s)" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#deleteArtists" prefHeight="25.0" text="Delete artist(s)" textAlignment="CENTER" />
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
@@ -90,7 +90,7 @@
                   <TableColumn fx:id="albumArtistColumn" prefWidth="123.0" text="Artist" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#deleteAlbums" prefHeight="25.0" prefWidth="197.0" text="Delete album" />
+            <Button mnemonicParsing="false" onAction="#deleteAlbums" prefHeight="25.0" text="Delete album" />
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -101,6 +101,7 @@
                 <TableColumn fx:id="genreNameColumn" onEditCommit="#changeGenreNameCellEvent" prefWidth="186.0" text="Name" />
               </columns>
             </TableView>
+            <Button mnemonicParsing="false" onAction="#deleteGenres" text="Delete genre" />
          </children>
       </VBox>
    </children>
