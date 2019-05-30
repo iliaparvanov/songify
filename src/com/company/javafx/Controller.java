@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
@@ -45,6 +47,8 @@ public class Controller implements Initializable {
     public TableColumn<Song, Album> songAlbumColumn;
     @FXML
     public TableColumn<Song, List<Artist>> songArtistsColumn;
+    @FXML
+    public TableColumn<Song, Genre> songGenreColumn;
 
     @FXML
     public TableView<Album> albumTableView;
@@ -61,6 +65,19 @@ public class Controller implements Initializable {
     public TableColumn<Genre, String> genreNameColumn;
     @FXML
     public TextField genreNameTextField;
+
+    //Song creation
+    @FXML
+    public TextField songTitleTextField;
+    @FXML
+    public DatePicker songReleaseDateDatePicker;
+    @FXML
+    public ChoiceBox<Integer> songLengthMinutesChoiceBox;
+    @FXML
+    public ChoiceBox<Integer> songLengthTensOfSecondsChoiceBox;
+    @FXML
+    public ChoiceBox<Integer> songLengthSecondsChoiceBox;
+
 
 
     @Override
@@ -81,6 +98,7 @@ public class Controller implements Initializable {
         songLengthColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("length"));
         songAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, Album>("album"));
         songArtistsColumn.setCellValueFactory(new PropertyValueFactory<Song, List<Artist>>("artists"));
+        songGenreColumn.setCellValueFactory(new PropertyValueFactory<Song, Genre>("genre"));
 
         albumTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -90,6 +108,12 @@ public class Controller implements Initializable {
 
         genreNameColumn.setCellValueFactory(new PropertyValueFactory<Genre, String>("name"));
         genreNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        songLengthMinutesChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(1, 9).boxed().collect(Collectors.toList())));
+        songLengthTensOfSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
+        songLengthSecondsChoiceBox.setItems(FXCollections.observableList(IntStream.rangeClosed(0, 9).boxed().collect(Collectors.toList())));
+
+
     }
 
 
@@ -144,6 +168,31 @@ public class Controller implements Initializable {
             fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createSong() throws SQLException {
+
+        if (!songTitleTextField.getText().toString().equals("")
+            && songReleaseDateDatePicker.getValue() != null
+            && songLengthMinutesChoiceBox.getValue() != null
+            && songLengthSecondsChoiceBox.getValue() != null
+            && songLengthTensOfSecondsChoiceBox.getValue() != null
+            && artistTableView.getSelectionModel().getSelectedItems().size() > 0
+            && albumTableView.getSelectionModel().getSelectedItems().size() > 0
+            && genreTableView.getSelectionModel().getSelectedItems().size() > 0) {
+            String releaseDate = songReleaseDateDatePicker.getValue().toString();
+            String length = songLengthMinutesChoiceBox.getValue().toString() +
+                    ":" +
+                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
+                    songLengthSecondsChoiceBox.getValue().toString();
+            Song song = SongsController.create(songTitleTextField.getText().toString(),
+                                                releaseDate,
+                                                length,
+                                                albumTableView.getSelectionModel().getSelectedItem(),
+                                                artistTableView.getSelectionModel().getSelectedItems(),
+                                                genreTableView.getSelectionModel().getSelectedItem());
+            songTableView.getItems().add(song);
         }
     }
 

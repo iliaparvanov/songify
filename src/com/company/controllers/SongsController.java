@@ -29,9 +29,10 @@ public class SongsController {
         return songs;
     }
 
-    public static void create(String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
+    public static Song create(String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
         //This should happen in a transaction
         connection.getConn().setAutoCommit(false);
+        Song toReturn = new Song(-1, title, releaseDate, length, album, artists, genre);
         try {
 
 
@@ -67,12 +68,15 @@ public class SongsController {
                 }
             }
             connection.getConn().commit();
+
+            toReturn = new Song(songId, title, releaseDate, length, album, artists, genre);
         } catch (Exception e) {
             connection.getConn().rollback();
             e.printStackTrace();
         } finally {
             connection.getConn().setAutoCommit(true);
         }
+        return toReturn;
     }
 
     public static void update(Song song) throws SQLException {
