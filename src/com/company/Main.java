@@ -62,9 +62,11 @@ public class Main {
                         case "song":
 
                             List<Song> songs = SongsController.find(scanner.next());
-                            if (songs.isEmpty()) {
+                            while (songs.isEmpty()) {
+
                                 System.out.println("No songs found...");
-                                break;
+                                songs = SongsController.find(scanner.next());
+
                             }
                             System.out.println("Choose a song");
 
@@ -152,9 +154,9 @@ public class Main {
                         case "artist":
 
                             List<Artist> artists = ArtistsController.find(scanner.next());
-                            if (artists.isEmpty()) {
+                            while (artists.isEmpty()) {
                                 System.out.println("No such artist");
-                                break;
+                                artists = ArtistsController.find(scanner.next());
                             }
 
                             choice = options(artists);
@@ -183,9 +185,9 @@ public class Main {
 
                         case "album":
                             List<Album> albums = AlbumsController.find(scanner.next());
-                            if(albums.isEmpty()) {
+                            while(albums.isEmpty()) {
                                 System.out.println("No such album");
-                                break;
+                                albums = AlbumsController.find(scanner.next());
                             }
                             choice = options(albums);
 
@@ -244,9 +246,9 @@ public class Main {
 
                             System.out.print("Album: ");
                             List<Album> albums = AlbumsController.find(scanner.next());
-                            if(albums.isEmpty()){
+                            while (albums.isEmpty()){
                                 System.out.println("No such album");
-                                break;
+                                albums = AlbumsController.find(scanner.next());
                             }
 
                             int choice = options(albums);
@@ -255,9 +257,9 @@ public class Main {
 
                             System.out.print("Artist: ");
                             List<Artist> artists = ArtistsController.find(scanner.next());
-                            if (artists == null) {
+                            while (artists == null) {
                                 System.out.println("No such artist");
-                                break;
+                                artists = ArtistsController.find(scanner.next());
                             }
                             choice = options(artists);
                             Artist artist = artists.get(choice);
@@ -295,9 +297,9 @@ public class Main {
 
                             System.out.print("Artist: ");
                             artists = ArtistsController.find(scanner.next());
-                            if (artists == null) {
+                            while (artists == null) {
                                 System.out.println("No such artist");
-                                break;
+                                artists = ArtistsController.find(scanner.next());
                             }
                             choice = options(artists);
                             artist = artists.get(choice);
