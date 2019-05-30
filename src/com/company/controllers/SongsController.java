@@ -80,23 +80,51 @@ public class SongsController {
     }
 
     public static void update(Song song) throws SQLException {
-        String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=?, genreId=? WHERE Id=?";
+        connection.getConn().setAutoCommit(false);
+        try {
+            String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=?, genreId=? WHERE Id=?";
 
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, song.getTitle());
-        statement.setString(2, song.getReleaseDate());
-        statement.setString(3, song.getLength());
-        statement.setInt(4, song.getAlbum().id);
-        statement.setInt(5, song.getGenre().id);
-        statement.setInt(6, song.id);
+            PreparedStatement statement = connection.getConn().prepareStatement(sql);
+            statement.setString(1, song.getTitle());
+            statement.setString(2, song.getReleaseDate());
+            statement.setString(3, song.getLength());
+            statement.setInt(4, song.getAlbum().id);
+            statement.setInt(5, song.getGenre().id);
+            statement.setInt(6, song.id);
 
-        System.out.println(song.id);
+            System.out.println(song.id);
 
-        int rowsUpdated = statement.executeUpdate();
-        if (rowsUpdated > 0) {
-            System.out.println("An existing song was updated successfully!");
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing song was updated successfully!");
+            }
+
+
+            statement = connection.getConn().prepareStatement("DELETE FROM ArtistSong WHERE SongId = ?");
+            statement.setInt(1, song.id);
+
+            statement.executeUpdate();
+
+            for (Artist a : song.getArtists()) {
+                sql = "INSERT INTO ArtistSong(ArtistId, SongId) VALUES (?, ?)";
+                statement = connection.getConn().prepareStatement(sql);
+                statement.setInt(1, a.id);
+                statement.setInt(2, song.id);
+
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("The new song's artist(s) was added successfully!");
+                }
+            }
+        } catch(Exception e) {
+            connection.getConn().rollback();
+            e.printStackTrace();
+        } finally {
+            connection.getConn().setAutoCommit(true);
         }
+
     }
+
 
     public static void delete(int id) throws SQLException {
         String sql = "DELETE FROM Song WHERE id=?";

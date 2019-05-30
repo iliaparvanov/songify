@@ -35,6 +35,16 @@ public class TableInitializer {
         SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, Arrays.asList(billie), wannaDie);
     }
 
+    public static void dropAllTables() throws SQLException {
+        connection.getConn().createStatement().execute("SET FOREIGN_KEY_CHECKS = 0;" +
+                "DROP TABLE IF EXISTS Song;" +
+                "DROP TABLE IF EXISTS Artist;" +
+                "DROP TABLE IF EXISTS Genre;" +
+                "DROP TABLE IF EXISTS Album;" +
+                "DROP TABLE IF EXISTS ArtistSong;" +
+                "SET FOREIGN_KEY_CHECKS = 1;");
+    }
+
     public static void createAllTables() throws SQLException {
         TableInitializer.createGenreTable();
         TableInitializer.createArtistTable();

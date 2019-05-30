@@ -64,6 +64,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#deleteSongs" text="Delete song(s)" />
                   <Button mnemonicParsing="false" onAction="#changeSongAlbum" text="Change album" />
+                  <Button mnemonicParsing="false" onAction="#changeSongArtists" text="Change artists" />
                   <Button mnemonicParsing="false" onAction="#changeSongGenre" text="Change genre" />
                </children>
             </HBox>
