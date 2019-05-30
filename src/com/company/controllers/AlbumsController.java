@@ -69,12 +69,9 @@ public class AlbumsController {
         }
     }
 
-    public static void show(String title) throws SQLException{
 
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("SELECT * From Album WHERE title="+ title);
-        statement.executeQuery();
-    }
+
+
 
     public static List<Album> find(String title) throws SQLException{
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title LIKE ?");

@@ -32,9 +32,9 @@ public class ArtistsController {
         return new Artist(id, name);
     }
 
-    public static void show() {
 
-    }
+
+
 
     public static List<Artist> index() throws SQLException {
         String sql = "SELECT * FROM Artist";

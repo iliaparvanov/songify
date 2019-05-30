@@ -79,11 +79,11 @@ public class GenresController {
         }
     }
 
-    public static void show(String name) throws  SQLException{
-        PreparedStatement statement = connection.getConn()
-                .prepareStatement("SELECT * From Genre WHERE title="+ name);
-        statement.executeQuery();
-    }
+
+
+
+
+
 
     public static List<Genre> find(String name) throws SQLException {
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Genre WHERE name like ?");
