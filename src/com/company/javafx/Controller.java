@@ -155,6 +155,16 @@ public class Controller implements Initializable {
         }
     }
 
+    public void changeSongAlbum() throws SQLException {
+        if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && albumTableView.getSelectionModel().getSelectedItems().size() == 1) {
+            for (Song s : songTableView.getSelectionModel().getSelectedItems()) {
+                s.setAlbum(albumTableView.getSelectionModel().getSelectedItem());
+                SongsController.update(s);
+            }
+            fetchAllFromDB();
+        }
+    }
+
     public void deleteArtists() throws SQLException {
         ObservableList<Artist> selectedArtists;
         selectedArtists = artistTableView.getSelectionModel().getSelectedItems();

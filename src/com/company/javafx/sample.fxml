@@ -63,6 +63,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#deleteSongs" text="Delete song(s)" />
+                  <Button mnemonicParsing="false" onAction="#changeSongAlbum" text="Change album" />
                   <Button mnemonicParsing="false" onAction="#changeSongGenre" text="Change genre" />
                </children>
             </HBox>
