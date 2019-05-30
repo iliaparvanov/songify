@@ -52,6 +52,8 @@ public class Controller implements Initializable {
     public TableColumn<Album, String> albumTitleColumn;
     @FXML
     public TableColumn<Album, Artist> albumArtistColumn;
+    @FXML
+    public TextField albumTitleTextField;
 
     @FXML
     public TableView<Genre> genreTableView;
@@ -140,6 +142,13 @@ public class Controller implements Initializable {
             fetchAllFromDB();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createAlbum() throws SQLException {
+        if (!albumTitleTextField.getText().toString().equals("") && artistTableView.getSelectionModel().getSelectedItems().size() != 0) {
+            Album album = AlbumsController.create(albumTitleTextField.getText().toString(), artistTableView.getSelectionModel().getSelectedItems().get(0));
+            albumTableView.getItems().add(album);
         }
     }
 

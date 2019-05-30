@@ -39,7 +39,7 @@ public class AlbumsController {
 
         int rowsInserted = statement.executeUpdate();
         if(rowsInserted > 0){
-            System.out.println("Genre inserted succesfully");
+            System.out.println("Album inserted succesfully");
         }
 
         return findFirst(title, artist);
