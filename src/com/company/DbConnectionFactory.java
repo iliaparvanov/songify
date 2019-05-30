@@ -5,11 +5,11 @@ import java.util.Properties;
 public class DbConnectionFactory {
     //AKO NESHTO GURMI, PROMENI FUNCKIQTA, KOQTO VRUSHTA TAZI FUNKCIQ
     public static DbConnection getDbConnection() {
-        return getIliaDbConnection();
+        return getStandardDbConnection();
     }
 
     private static DbConnection getStandardDbConnection() {
-        return new DbConnection("Songify", "xothas", "asdf", new java.util.Properties());
+        return new DbConnection("Songify", "root", "root", new java.util.Properties());
     }
 
     private static DbConnection getIliaDbConnection() {

@@ -31,12 +31,18 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        TableInitializer.createAllTables();
-        TableInitializer.seedDb();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Initialize DB?\nYes\nNo");
+        String command = scanner.next();
+
+        if(command.equals("Yes") || command.equals("yes")) {
+            TableInitializer.createAllTables();
+            TableInitializer.seedDb();
+        }
 
         System.out.println("Wellcome to Songify");
 
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Choose function:\ncreate\nfind\nindex\nexit\n");
         while (scanner.hasNext()) {
 
@@ -111,11 +117,15 @@ public class Main {
 
                         case "genre":
 
-                            Genre genre = GenresController.find(scanner.next());
-                            if (genre == null) {
+                            List<Genre> genres = GenresController.find(scanner.next());
+                            while(genres.isEmpty()) {
                                 System.out.println("No such genre");
-                                break;
+                                genres = GenresController.find(scanner.next());
                             }
+
+                            int choice = options(genres);
+                            Genre genre = genres.get(choice);
+
                             System.out.println("Choose an option: \nupdate\ndelete\nsave\nback");
                             while (scanner.hasNext()) {
                                 option = scanner.next();
@@ -147,7 +157,7 @@ public class Main {
                                 break;
                             }
 
-                            int choice = options(artists);
+                            choice = options(artists);
                             Artist artist = artists.get(choice);
                             System.out.println("Choose an option: \nupdate\ndelete\nsave\nback");
                             while (scanner.hasNext()) {
@@ -252,7 +262,17 @@ public class Main {
                             choice = options(artists);
                             Artist artist = artists.get(choice);
 
-                            SongsController.create(name, releaseDate, length, album, Arrays.asList(artist));
+
+                            System.out.print("Type genre name: ");
+                            List<Genre> genres = GenresController.find(scanner.next());
+                            while(genres.isEmpty()) {
+                                System.out.println("No such genre");
+                                genres = GenresController.find(scanner.next());
+                            }
+
+                            choice = options(genres);
+
+                            SongsController.create(name, releaseDate, length, album, Arrays.asList(artist), genres.get(choice));
                             break;
 
                         case "genre":

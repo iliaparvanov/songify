@@ -16,16 +16,18 @@ public class Song {
     private SimpleStringProperty title;
     private SimpleStringProperty releaseDate;
     private SimpleStringProperty length;
-    private  Album album;
+    private Album album;
     private ObservableList<Artist> artists;
+    private Genre genre;
 
-    public Song(int id, String title, String releaseDate, String length, Album album, List<Artist> artists) throws SQLException {
+    public Song(int id, String title, String releaseDate, String length, Album album, List<Artist> artists, Genre genre) throws SQLException {
         this.id = id;
         this.title = new SimpleStringProperty(title);
         this.releaseDate = new SimpleStringProperty(releaseDate);
         this.length = new SimpleStringProperty(length);
         this.album = album;
         this.artists = FXCollections.observableList(artists);
+        this.genre = genre;
     }
 
     public Album getAlbum() {
@@ -48,6 +50,10 @@ public class Song {
         return artists.stream().collect(Collectors.toList());
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
     public void setTitle(String title) {
         this.title = new SimpleStringProperty(title);
     }
@@ -68,6 +74,9 @@ public class Song {
         this.artists = FXCollections.observableList(artists);
     }
 
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 
     @Override
     public String toString() {
