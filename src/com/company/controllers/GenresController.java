@@ -85,9 +85,26 @@ public class GenresController {
         statement.executeQuery();
     }
 
-    public static Genre find(String name) throws SQLException {
+    public static List<Genre> find(String name) throws SQLException {
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Genre WHERE name like ?");
         statement.setString(1, "%" + name + "%");
+
+        ResultSet result = statement.executeQuery();
+        if(!result.next()) {
+            return null;
+        }
+
+        List<Genre> genres = new ArrayList<>();
+
+        while(result.next()) {
+             genres.add(new Genre(result.getInt("Id"), result.getString("name")));
+        }
+        return genres;
+    }
+
+    public static Genre find(int id) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Genre WHERE id= ?");
+        statement.setInt(1, id);
 
         ResultSet result = statement.executeQuery();
         if(!result.next()) {

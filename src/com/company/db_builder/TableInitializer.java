@@ -1,9 +1,6 @@
 package com.company.db_builder;
 
-import com.company.Album;
-import com.company.Artist;
-import com.company.DbConnection;
-import com.company.DbConnectionFactory;
+import com.company.*;
 import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
 import com.company.controllers.GenresController;
@@ -29,17 +26,20 @@ public class TableInitializer {
         Album vertigo = AlbumsController.create("vertigo", eden);
         Album billieAlbum = AlbumsController.create("WHEN WE ALL FALL ASLEEP WHERE DO WE GO", billie);
 
-        SongsController.create("wrong", "2018-01-19", "1:04", vertigo, Arrays.asList(eden));
-        SongsController.create("take care", "2018-01-19", "3:16", vertigo, Arrays.asList(eden));
-        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum, Arrays.asList(billie));
-        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, Arrays.asList(billie));
+        Genre depresso = GenresController.create("depresso");
+        Genre wannaDie = GenresController.create("Wanna die");
+
+        SongsController.create("wrong", "2018-01-19", "1:04", vertigo, Arrays.asList(eden), depresso);
+        SongsController.create("take care", "2018-01-19", "3:16", vertigo, Arrays.asList(eden), depresso);
+        SongsController.create("bad guy", "2019-03-29", "3:14", billieAlbum, Arrays.asList(billie), wannaDie);
+        SongsController.create("xanny", "2019-03-29", "4:04", billieAlbum, Arrays.asList(billie), wannaDie);
     }
 
     public static void createAllTables() throws SQLException {
         TableInitializer.createGenreTable();
         TableInitializer.createArtistTable();
-        TableInitializer.createSongTable();
         TableInitializer.createAlbumTable();
+        TableInitializer.createSongTable();
         TableInitializer.createArtistSongTable();
     }
 
@@ -51,7 +51,9 @@ public class TableInitializer {
                         "releaseDate date," +
                         "length varchar(4)," +
                         "albumId int," +
-                            "FOREIGN KEY (albumId) REFERENCES Album(Id));");
+                        "genreId int," +
+                            "FOREIGN KEY (albumId) REFERENCES Album(Id)," +
+                            "FOREIGN KEY (genreId) REFERENCES Genre(Id));");
 
 
         System.out.println("Song table initilized");
