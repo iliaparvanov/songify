@@ -37,9 +37,9 @@ public class TableInitializer {
 
     public static void createAllTables() throws SQLException {
         TableInitializer.createGenreTable();
+        TableInitializer.createArtistTable();
         TableInitializer.createSongTable();
         TableInitializer.createAlbumTable();
-        TableInitializer.createArtistTable();
         TableInitializer.createArtistSongTable();
     }
 
@@ -65,18 +65,6 @@ public class TableInitializer {
         System.out.println("Genre table initilized");
     }
 
-    public static void createAlbumTable() throws SQLException {
-        connection.getConn().createStatement().execute(
-                "create table Album ( " +
-                        "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-                        "Title VARCHAR(150) NOT NULL," +
-                        "ArtistID INTEGER NOT NULL);" +
-                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id));");
-
-
-        System.out.println("Album table initilized");
-    }
-
     public static void createArtistTable() throws SQLException {
         connection.getConn().createStatement().execute(
                 "CREATE TABLE Artist(" +
@@ -84,6 +72,18 @@ public class TableInitializer {
                         "Name VARCHAR(150) NOT NULL);");
 
         System.out.println("Artist table initialised");
+    }
+
+    public static void createAlbumTable() throws SQLException {
+        connection.getConn().createStatement().execute(
+                "create table Album ( " +
+                        "Id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+                        "Title VARCHAR(150) NOT NULL," +
+                        "ArtistID INTEGER NOT NULL, " +
+                            "FOREIGN KEY (ArtistID) REFERENCES Artist(Id) ON DELETE CASCADE);");
+
+
+        System.out.println("Album table initilized");
     }
 
     public static void createArtistSongTable() throws SQLException {

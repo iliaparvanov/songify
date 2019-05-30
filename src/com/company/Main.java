@@ -31,8 +31,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        //TableInitializer.createAllTables();
-        //TableInitializer.seedDb();
+        TableInitializer.createAllTables();
+        TableInitializer.seedDb();
 
         System.out.println("Wellcome to Songify");
 
@@ -78,19 +78,19 @@ public class Main {
                                         while (scanner.hasNext()) {
                                             String parameter = scanner.next();
                                             if (parameter.equals("name:")) {
-                                                song.title = scanner.next();
+                                                song.setTitle(scanner.next());
                                             } else if (parameter.equals("releaseDate:")) {
-                                                song.releaseDate = scanner.next();
+                                                song.setReleaseDate(scanner.next());
                                             } else if (parameter.equals("length:")) {
-                                                song.length = scanner.next();
+                                                song.setLength(scanner.next());
                                             } else if (parameter.equals("album:")) {
                                                 List<Album> albums = AlbumsController.find(scanner.next());
                                                 int choice = options(albums);
-                                                song.album = albums.get(choice);
+                                                song.setAlbum(albums.get(choice));
                                             } else if (parameter.equals("artist:")) {
                                                 List<Artist> artists = ArtistsController.find(scanner.next());
                                                 int choice = options(artists);
-                                                song.artists = Arrays.asList(artists.get(choice));
+                                                song.setArtists(Arrays.asList(artists.get(choice)));
                                             }
 
                                             if (parameter.contains(";")) {

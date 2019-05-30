@@ -86,10 +86,10 @@ public class SongsController {
         String sql = "UPDATE Song SET title=?, releaseDate=?, length=?, albumId=? WHERE Id=?";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, song.title);
-        statement.setString(2, song.releaseDate);
-        statement.setString(3, song.length);
-        statement.setInt(4, song.album.id);
+        statement.setString(1, song.getTitle());
+        statement.setString(2, song.getReleaseDate());
+        statement.setString(3, song.getLength());
+        statement.setInt(4, song.getAlbum().id);
         statement.setInt(5, song.id);
 
         System.out.println(song.id);
