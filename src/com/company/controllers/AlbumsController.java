@@ -59,8 +59,8 @@ public class AlbumsController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Album SET title=?, artistId=? WHERE Id=?");
 
-        statement.setString(1, album.title);
-        statement.setInt(2, album.artist.id);
+        statement.setString(1, album.getTitle());
+        statement.setInt(2, album.getArtist().id);
         statement.setInt(3, album.id);
 
         int rowsUpdated = statement.executeUpdate();

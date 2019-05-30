@@ -4,6 +4,7 @@ package com.company.javafx;
 import com.company.Album;
 import com.company.Artist;
 import com.company.Song;
+import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
 import com.company.controllers.SongsController;
 import javafx.collections.FXCollections;
@@ -43,11 +44,19 @@ public class Controller implements Initializable {
     @FXML
     public TableColumn<Song, List<Artist>> songArtistsColumn;
 
+    @FXML
+    public TableView<Album> albumTableView;
+    @FXML
+    public TableColumn<Album, String> albumTitleColumn;
+    @FXML
+    public TableColumn<Album, Artist> albumArtistColumn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
             songTableView.setItems(FXCollections.observableList(SongsController.index()));
+            albumTableView.setItems(FXCollections.observableList(AlbumsController.index()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,6 +71,9 @@ public class Controller implements Initializable {
         songLengthColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("length"));
         songAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, Album>("album"));
         songArtistsColumn.setCellValueFactory(new PropertyValueFactory<Song, List<Artist>>("artists"));
+
+        albumTitleColumn.setCellValueFactory(new PropertyValueFactory<Album, String>("title"));
+        albumArtistColumn.setCellValueFactory(new PropertyValueFactory<Album, Artist>("artist"));
     }
 
     public void changeArtistNameCellEvent(TableColumn.CellEditEvent editted) throws SQLException {

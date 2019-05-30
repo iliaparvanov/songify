@@ -193,7 +193,7 @@ public class Main {
                                         while (scanner.hasNext()) {
                                             String parameter = scanner.next();
                                             if (parameter.equals("name:")) {
-                                                album.title = scanner.next();
+                                                album.setTitle(scanner.next());
                                             } else if (parameter.equals("artist:")) {
                                                 artists = ArtistsController.find(scanner.next());
                                                 if (artists == null) {
@@ -202,7 +202,7 @@ public class Main {
                                                 }
                                                 choice = options(artists);
                                                 artist = artists.get(choice);
-                                                album.artist = artist;
+                                                album.setArtist(artist);
                                             } else if (parameter.contains(";")) {
                                                 break;
                                             }
