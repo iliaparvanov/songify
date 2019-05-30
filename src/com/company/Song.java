@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class Song {
     public int id;
@@ -11,23 +12,21 @@ public class Song {
     public  String releaseDate;
     public  String length;
     public  Album album;
-    public  Artist artist;
+    public  List<Artist> artists;
 
-    public Song(int id, String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
+    public Song(int id, String title, String releaseDate, String length, Album album, List<Artist> artists) throws SQLException {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.length = length;
         this.album = album;
-        this.artist = artist;
+        this.artists = artists;
     }
 
     @Override
     public String toString() {
-        return  title + ", by" + artist.name;
-
-
-
+        String aStrings = String.valueOf(artists.stream().map((a) -> a.toString()).reduce((left, right) -> left + ", " + right));
+        return  title + ", by" + aStrings;
 
     }
 }

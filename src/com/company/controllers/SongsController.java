@@ -36,20 +36,48 @@ public class SongsController {
         return songs;
     }
 
-    public static void create(String title, String releaseDate, String length, Album album, Artist artist) throws SQLException {
+    public static void create(String title, String releaseDate, String length, Album album, List<Artist> artists) throws SQLException {
+        //This should happen in a transaction
+        connection.getConn().setAutoCommit(false);
+        try {
 
-        String sql = "INSERT INTO Song(title, releaseDate, length, albumId, artistId) VALUES (?, ?, ?, ?, ?)";
 
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, title);
-        statement.setString(2, releaseDate);
-        statement.setString(3, length);
-        statement.setInt(4, album.id);
-        statement.setInt(5, artist.id);
+            String sql = "INSERT INTO Song(title, releaseDate, length, albumId, artistId) VALUES (?, ?, ?, ?, ?)";
 
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) {
-            System.out.println("A new song was inserted successfully!");
+            PreparedStatement statement = connection.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, title);
+            statement.setString(2, releaseDate);
+            statement.setString(3, length);
+            statement.setInt(4, album.id);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new song was inserted successfully!");
+            }
+
+            int songId = -1;
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                songId = rs.getInt(1);
+            }
+
+            for (Artist a : artists) {
+                sql = "INSERT INTO ArtistSong(ArtistId, SongId) VALUES (?, ?)";
+                statement = connection.getConn().prepareStatement(sql);
+                statement.setInt(1, a.id);
+                statement.setInt(2, songId);
+
+                rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("The new song's artist(s) was added successfully!");
+                }
+            }
+            connection.getConn().commit();
+        } catch (Exception e) {
+            connection.getConn().rollback();
+            e.printStackTrace();
+        } finally {
+            connection.getConn().setAutoCommit(true);
         }
     }
 
