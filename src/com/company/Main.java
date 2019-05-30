@@ -159,7 +159,7 @@ public class Main {
                                         break;
                                     case "update":
                                         if (scanner.next().equals("name:")) {
-                                            artist.name = scanner.next();
+                                            artist.setName(scanner.next());
                                         }
                                         break;
                                     case "save":

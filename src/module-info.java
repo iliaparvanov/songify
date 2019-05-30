@@ -4,4 +4,5 @@ module songify {
     requires java.sql;
 
     opens com.company.javafx;
+    opens com.company;
 }

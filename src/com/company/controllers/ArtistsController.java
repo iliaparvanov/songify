@@ -55,7 +55,7 @@ public class ArtistsController {
         PreparedStatement statement = connection.getConn()
                 .prepareStatement("UPDATE Artist SET name=? WHERE Id=?");
 
-        statement.setString(1, artist.name);
+        statement.setString(1, artist.getName());
         statement.setInt(2, artist.id);
 
         int rowsUpdated = statement.executeUpdate();
