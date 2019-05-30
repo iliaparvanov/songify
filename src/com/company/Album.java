@@ -13,10 +13,6 @@ public class Album {
 
     @Override
     public String toString() {
-        return "Album{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", artist=" + artist +
-                '}';
+        return  title + ", by " + artist.name;
     }
 }

@@ -30,8 +30,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-//        TableInitializer.createAllTables();
-//        TableInitializer.seedDb();
+        //TableInitializer.createAllTables();
+        //TableInitializer.seedDb();
 
         System.out.println("Wellcome to Songify");
 
@@ -233,7 +233,13 @@ public class Main {
 
                             System.out.print("Album: ");
                             List<Album> albums = AlbumsController.find(scanner.next());
+                            if(albums.isEmpty()){
+                                System.out.println("No such album");
+                                break;
+                            }
+
                             int choice = options(albums);
+
                             Album album = albums.get(choice);
 
                             System.out.print("Artist: ");
