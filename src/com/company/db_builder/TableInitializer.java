@@ -64,7 +64,7 @@ public class TableInitializer {
                         "releaseDate date," +
                         "length varchar(4)," +
                         "albumId int not null," +
-                        "genreId int not null," +
+                        "genreId int," +
                             "FOREIGN KEY (albumId) REFERENCES Album(Id) ON DELETE CASCADE," +
                             "FOREIGN KEY (genreId) REFERENCES Genre(Id) ON DELETE CASCADE);");
 

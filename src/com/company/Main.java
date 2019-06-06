@@ -63,9 +63,12 @@ public class Main {
 
                             List<Song> songs = SongsController.find(scanner.next());
                             while (songs.isEmpty()) {
-
+                                String input = scanner.next();
+                                if (input.equals("back")) {
+                                    break;
+                                }
                                 System.out.println("No songs found...");
-                                songs = SongsController.find(scanner.next());
+                                songs = SongsController.find(input);
 
                             }
                             System.out.println("Choose a song");
@@ -78,41 +81,42 @@ public class Main {
                             while (scanner.hasNext()) {
                                 option = scanner.next();
 
-                                switch (option) {
-                                    case "delete":
+                                if (option.equals("delete")) {
                                         SongsController.delete(song.id);
-                                        break;
-                                    case "update":
-                                        while (scanner.hasNext()) {
-                                            String parameter = scanner.next();
-                                            if (parameter.equals("name:")) {
-                                                song.setTitle(scanner.next());
-                                            } else if (parameter.equals("releaseDate:")) {
-                                                song.setReleaseDate(scanner.next());
-                                            } else if (parameter.equals("length:")) {
-                                                song.setLength(scanner.next());
-                                            } else if (parameter.equals("album:")) {
-                                                List<Album> albums = AlbumsController.find(scanner.next());
-                                                int choice = options(albums);
-                                                song.setAlbum(albums.get(choice));
-                                            } else if (parameter.equals("artist:")) {
-                                                List<Artist> artists = ArtistsController.find(scanner.next());
-                                                int choice = options(artists);
-                                                song.setArtists(Arrays.asList(artists.get(choice)));
-                                            }
-
-                                            if (parameter.contains(";")) {
-                                                break;
-                                            }
+                                        break; }
+                                    if (option.equals("update")) {
+                                    while (scanner.hasNext()) {
+                                        String parameter = scanner.next();
+                                        if (parameter.equals("name:")) {
+                                            song.setTitle(scanner.next());
+                                        } else if (parameter.equals("releaseDate:")) {
+                                            song.setReleaseDate(scanner.next());
+                                        } else if (parameter.equals("length:")) {
+                                            song.setLength(scanner.next());
+                                        } else if (parameter.equals("album:")) {
+                                            List<Album> albums = AlbumsController.find(scanner.next());
+                                            int choice = options(albums);
+                                            song.setAlbum(albums.get(choice));
+                                        } else if (parameter.equals("artist:")) {
+                                            List<Artist> artists = ArtistsController.find(scanner.next());
+                                            int choice = options(artists);
+                                            song.setArtists(Arrays.asList(artists.get(choice)));
                                         }
-                                        break;
 
-                                    case "save":
-                                        SongsController.update(song);
-                                        break;
-                                }
-                                if (option.equals("back"))
+                                        if (parameter.contains(";")) {
+                                            break;
+                                        }
+                                    }
                                     break;
+                                }
+                                    if (option.equals("save")) {
+                                    SongsController.update(song);
+                                    break;
+                                }
+
+                                if (option.equals("back")) {
+                                    break;
+                                }
                                 System.out.println("Choose an option:\ndelete\nupdate\nsave\nback\n");
                             }
                             break;
@@ -131,20 +135,21 @@ public class Main {
                             System.out.println("Choose an option: \nupdate\ndelete\nsave\nback");
                             while (scanner.hasNext()) {
                                 option = scanner.next();
-                                switch (option) {
-                                    case "delete":
-                                        GenresController.delete(genre.id);
-                                        break;
-                                    case "update":
-                                        if (scanner.next().equals("name:")) {
-                                            genre.setName(scanner.next());
-                                        }
-                                        break;
-
-                                    case "save":
-                                        GenresController.update(genre);
-                                        break;
+                                if (option.equals("delete")) {
+                                    GenresController.delete(genre.id);
+                                    break;
                                 }
+                                if (option.equals("update")) {
+                                    if (scanner.next().equals("name:")) {
+                                        genre.setName(scanner.next());
+                                    }
+                                    break;
+                                }
+                            if (option.equals("save")) {
+                                GenresController.update(genre);
+                                break;
+                            }
+
                                 if (option.equals("back"))
                                     break;
                                 System.out.println("Choose an option: \nupdate\ndelete\nsave\nback");
@@ -165,17 +170,19 @@ public class Main {
                             while (scanner.hasNext()) {
 
                                 option = scanner.next();
-                                switch (option) {
-                                    case "delete":
-                                        ArtistsController.delete(artist.id);
-                                        break;
-                                    case "update":
+                                if (option.equals("delete")) {
+                                    ArtistsController.delete(artist.id);
+                                    break;
+                                }
+                                    if (option.equals("update")) {
                                         if (scanner.next().equals("name:")) {
                                             artist.setName(scanner.next());
                                         }
                                         break;
-                                    case "save":
+                                        }
+                                    if (option.equals("save")) {
                                         ArtistsController.update(artist);
+                                        break;
                                 }
                                 if (option.equals("back"))
                                     break;
@@ -197,11 +204,11 @@ public class Main {
                             while (scanner.hasNext()) {
 
                                 option = scanner.next();
-                                switch (option) {
-                                    case "delete":
-                                        AlbumsController.delete(album.id);
-                                        break;
-                                    case "update":
+                                if(option.equals("delete")) {
+                                    AlbumsController.delete(album.id);
+                                    break;
+                                }
+                                    if(option.equals("update")) {
                                         while (scanner.hasNext()) {
                                             String parameter = scanner.next();
                                             if (parameter.equals("name:")) {
@@ -219,14 +226,15 @@ public class Main {
                                                 break;
                                             }
                                         }
-                                    case "save":
-                                        AlbumsController.update(album);
-                                        break;
-                                    case "back":
+                                    }
+                                    if (option.equals("save")) {
+                                    AlbumsController.update(album);
+                                    break;
+                                }
+                                    if (option.equals("back")) {
+
                                         break;
                                 }
-                                if (option.equals("back"))
-                                    break;
                                 System.out.println("Choose an option: \nupdate\ndelete\nsave\nback");
                             }
                             break;

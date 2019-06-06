@@ -138,11 +138,60 @@ public class SongsController {
         }
     }
 
+    public static void delete(Album album) throws SQLException {
+        String sql = "DELETE FROM Song WHERE albumId=?";
+
+        PreparedStatement statement = connection.getConn().prepareStatement(sql);
+        statement.setInt(1, album.id);
+
+        int rowsDeleted = statement.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("A song was deleted successfully!");
+        }
+    }
+
+    public static void delete(Artist artist) throws SQLException {
+        find(artist).stream().forEach((s) -> {
+            String sql = "DELETE FROM Song WHERE Id=?";
+            try {
+                System.out.println("Song title: " + s.getTitle());
+                PreparedStatement statement = connection.getConn().prepareStatement(sql);
+                statement.setString(1, String.valueOf(s.id));
+
+                int rowsDeleted = statement.executeUpdate();
+                if (rowsDeleted > 0) {
+                    System.out.println("Song(s) was deleted successfully!");
+                }
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
     //TODO: Change this to use an SQL statement
 
     public static List<Song> find(String name) throws SQLException {
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Song WHERE title like ?");
         statement.setString(1, "%" + name + "%");
+
+        ResultSet result = statement.executeQuery();
+        List<Song> songs = new ArrayList<>();
+        while (result.next()) {
+            songs.add(new Song(result.getInt("Id"),
+                    result.getString("title"),
+                    result.getString("releaseDate"),
+                    result.getString("length"),
+                    AlbumsController.find(result.getInt("albumId")),
+                    ArtistsController.findBySongId(result.getInt("Id")),
+                    GenresController.find(result.getInt("genreId"))));
+        }
+        return songs;
+    }
+
+    public static List<Song> find(Artist artist) throws SQLException {
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Song s INNER JOIN ArtistSong ass ON ? = ass.ArtistId AND s.Id = ass.SongId");
+        statement.setInt(1, artist.id);
 
         ResultSet result = statement.executeQuery();
         List<Song> songs = new ArrayList<>();

@@ -70,9 +70,13 @@ public class ArtistsController {
         connection.getConn().setAutoCommit(false);
 
         try {
+            SongsController.delete(ArtistsController.find(id));
+            AlbumsController.delete(ArtistsController.find(id));
             String sql = "DELETE FROM Artist WHERE Id=?";
 
-            PreparedStatement statement = connection.getConn().prepareStatement(sql);
+            PreparedStatement statement = connection.getConn().prepareStatement("SET FOREIGN_KEY_CHECKS = 1;");
+            statement.execute();
+            statement = connection.getConn().prepareStatement(sql);
             statement.setInt(1, id );
 
             int rowsDeleted = statement.executeUpdate();

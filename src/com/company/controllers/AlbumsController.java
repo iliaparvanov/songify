@@ -46,12 +46,27 @@ public class AlbumsController {
     }
 
     public static void delete(int id) throws SQLException {
-
+        SongsController.delete(AlbumsController.find(id));
         PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
         statement.setString(1, id+"");
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
             System.out.println("Album deleted succesfully");
+        }
+    }
+
+    public static void delete(Artist artist) throws SQLException {
+        AlbumsController.find(artist).stream().forEach((a) -> {
+            try {
+                SongsController.delete(a);
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }});
+        PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE ArtistID= ?");
+        statement.setString(1, String.valueOf(artist.id));
+        int rowsDeleted = statement.executeUpdate();
+        if(rowsDeleted > 0){
+            System.out.println("Album(s) deleted succesfully");
         }
     }
 
@@ -72,6 +87,17 @@ public class AlbumsController {
 
 
 
+    public static List<Album> find(Artist artist) throws SQLException{
+        PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE ArtistID = ?");
+        statement.setInt(1, artist.id);
+
+        ResultSet result = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+        while (result.next()) {
+            albums.add(new Album(result.getInt("Id"), result.getString("Title"), ArtistsController.find(result.getInt("ArtistID"))));
+        }
+        return albums;
+    }
 
     public static List<Album> find(String title) throws SQLException{
         PreparedStatement statement = connection.getConn().prepareStatement("SELECT * FROM Album WHERE Title LIKE ?");
