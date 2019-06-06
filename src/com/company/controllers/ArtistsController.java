@@ -62,18 +62,36 @@ public class ArtistsController {
         if(rowsUpdated > 0){
             System.out.println("Artist updated succesfully");
         }
+
+
     }
 
     public static void delete(int id) throws SQLException {
-        String sql = "DELETE FROM Artist WHERE id=?";
+        connection.getConn().setAutoCommit(false);
 
-        PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, id + "");
+        try {
+            String sql = "DELETE FROM Artist WHERE Id=?";
 
-        int rowsDeleted = statement.executeUpdate();
-        if (rowsDeleted > 0) {
-            System.out.println("An artist was deleted successfully!");
+            PreparedStatement statement = connection.getConn().prepareStatement(sql);
+            statement.setInt(1, id );
+
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("An artist was deleted successfully!");
+            }
+
+            statement = connection.getConn().prepareStatement("DELETE FROM ArtistSong WHERE ArtistId = ?");
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch(Exception e) {
+            connection.getConn().rollback();
+            e.printStackTrace();
+        } finally {
+            connection.getConn().setAutoCommit(true);
+
         }
+
     }
 
     public static List<Artist> find(String name) throws SQLException {

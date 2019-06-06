@@ -9,6 +9,7 @@ import com.company.controllers.AlbumsController;
 import com.company.controllers.ArtistsController;
 import com.company.controllers.GenresController;
 import com.company.controllers.SongsController;
+import com.company.db_builder.TableInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -274,6 +275,13 @@ public class Controller implements Initializable {
         }
     }
 
+    public void resetAndSeedDb() throws SQLException {
+        TableInitializer.dropAllTables();
+        TableInitializer.createAllTables();
+        TableInitializer.seedDb();
+        fetchAllFromDB();
+    }
+
     private void fetchAllFromDB() throws SQLException {
         artistTableView.setItems(FXCollections.observableList(ArtistsController.index()));
         songTableView.setItems(FXCollections.observableList(SongsController.index()));
@@ -281,3 +289,5 @@ public class Controller implements Initializable {
         genreTableView.setItems(FXCollections.observableList(GenresController.index()));
     }
 }
+
+

@@ -36,13 +36,16 @@ public class TableInitializer {
     }
 
     public static void dropAllTables() throws SQLException {
-        connection.getConn().createStatement().execute("SET FOREIGN_KEY_CHECKS = 0;" +
-                "DROP TABLE IF EXISTS Song;" +
-                "DROP TABLE IF EXISTS Artist;" +
-                "DROP TABLE IF EXISTS Genre;" +
-                "DROP TABLE IF EXISTS Album;" +
-                "DROP TABLE IF EXISTS ArtistSong;" +
-                "SET FOREIGN_KEY_CHECKS = 1;");
+        connection.getConn().createStatement().executeUpdate(
+                "DROP TABLE IF EXISTS Album;");
+        connection.getConn().createStatement().executeUpdate(
+                "DROP TABLE IF EXISTS Song;");
+        connection.getConn().createStatement().executeUpdate(
+                "DROP TABLE IF EXISTS Artist;");
+        connection.getConn().createStatement().executeUpdate(
+                "DROP TABLE IF EXISTS Genre;");
+        connection.getConn().createStatement().executeUpdate(
+                "DROP TABLE IF EXISTS ArtistSong;");
     }
 
     public static void createAllTables() throws SQLException {
@@ -60,10 +63,10 @@ public class TableInitializer {
                         "title varchar(20)," +
                         "releaseDate date," +
                         "length varchar(4)," +
-                        "albumId int," +
-                        "genreId int," +
-                            "FOREIGN KEY (albumId) REFERENCES Album(Id)," +
-                            "FOREIGN KEY (genreId) REFERENCES Genre(Id));");
+                        "albumId int not null," +
+                        "genreId int not null," +
+                            "FOREIGN KEY (albumId) REFERENCES Album(Id) ON DELETE CASCADE," +
+                            "FOREIGN KEY (genreId) REFERENCES Genre(Id) ON DELETE CASCADE);");
 
 
         System.out.println("Song table initilized");
