@@ -130,7 +130,7 @@ public class SongsController {
         String sql = "DELETE FROM Song WHERE id=?";
 
         PreparedStatement statement = connection.getConn().prepareStatement(sql);
-        statement.setString(1, id + "");
+        statement.setInt(1, id);
 
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
@@ -156,7 +156,7 @@ public class SongsController {
             try {
                 System.out.println("Song title: " + s.getTitle());
                 PreparedStatement statement = connection.getConn().prepareStatement(sql);
-                statement.setString(1, String.valueOf(s.id));
+                statement.setInt(1, s.id);
 
                 int rowsDeleted = statement.executeUpdate();
                 if (rowsDeleted > 0) {
