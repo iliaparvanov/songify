@@ -125,11 +125,20 @@ public class Main {
                             break;
 
                         case "genre":
-
+                            boolean genreWasFound = true;
                             List<Genre> genres = GenresController.find(scanner.next());
                             while(genres.isEmpty()) {
                                 System.out.println("No such genre");
-                                genres = GenresController.find(scanner.next());
+                                String input = scanner.next();
+                                if (input.equals("back")) {
+                                    genreWasFound = false;
+                                    break;
+                                }
+                                genres = GenresController.find(input);
+                            }
+
+                            if (!genreWasFound) {
+                                break;
                             }
 
                             int choice = options(genres);
@@ -194,10 +203,19 @@ public class Main {
                             break;
 
                         case "album":
+                            boolean albumWasFound = true;
                             List<Album> albums = AlbumsController.find(scanner.next());
                             while(albums.isEmpty()) {
                                 System.out.println("No such album");
-                                albums = AlbumsController.find(scanner.next());
+                                String input = scanner.next();
+                                if (input.equals("back")) {
+                                    albumWasFound = false;
+                                    break;
+                                }
+                                albums = AlbumsController.find(input);
+                            }
+                            if (!albumWasFound) {
+                                break;
                             }
                             choice = options(albums);
 

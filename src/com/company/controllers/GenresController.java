@@ -90,9 +90,6 @@ public class GenresController {
         statement.setString(1, "%" + name + "%");
 
         ResultSet result = statement.executeQuery();
-        if(!result.next()) {
-            return null;
-        }
 
         List<Genre> genres = new ArrayList<>();
 
