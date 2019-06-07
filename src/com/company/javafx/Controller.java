@@ -146,6 +146,30 @@ public class Controller implements Initializable {
         fetchAllFromDB();
     }
 
+    public void changeSongLength() throws SQLException {
+        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+        if (songLengthMinutesChoiceBox.getValue() != null
+                && songLengthTensOfSecondsChoiceBox.getValue() != null
+                && songLengthSecondsChoiceBox.getValue() != null) {
+            String length = songLengthMinutesChoiceBox.getValue().toString() +
+                    ":" +
+                    songLengthTensOfSecondsChoiceBox.getValue().toString() +
+                    songLengthSecondsChoiceBox.getValue().toString();
+            selectedSong.setLength(length);
+            SongsController.update(selectedSong);
+            fetchAllFromDB();
+        }
+    }
+
+    public void changeSongReleaseDate() throws SQLException {
+        Song selectedSong = songTableView.getSelectionModel().getSelectedItem();
+        if (songReleaseDateDatePicker.getValue() != null) {
+            selectedSong.setReleaseDate(songReleaseDateDatePicker.getValue().toString());
+            SongsController.update(selectedSong);
+            fetchAllFromDB();
+        }
+    }
+
     public void changeSongGenre() throws SQLException {
         if (songTableView.getSelectionModel().getSelectedItems().size() > 0 && genreTableView.getSelectionModel().getSelectedItems().size() == 1) {
             for (Song s : songTableView.getSelectionModel().getSelectedItems()) {

@@ -88,30 +88,30 @@ public class Main {
                                         SongsController.delete(song.id);
                                         break; }
                                     if (option.equals("update")) {
-                                    while (scanner.hasNext()) {
-                                        String parameter = scanner.next();
-                                        if (parameter.equals("name:")) {
-                                            song.setTitle(scanner.next());
-                                        } else if (parameter.equals("releaseDate:")) {
-                                            song.setReleaseDate(scanner.next());
-                                        } else if (parameter.equals("length:")) {
-                                            song.setLength(scanner.next());
-                                        } else if (parameter.equals("album:")) {
-                                            List<Album> albums = AlbumsController.find(scanner.next());
-                                            int choice = options(albums);
-                                            song.setAlbum(albums.get(choice));
-                                        } else if (parameter.equals("artist:")) {
-                                            List<Artist> artists = ArtistsController.find(scanner.next());
-                                            int choice = options(artists);
-                                            song.setArtists(Arrays.asList(artists.get(choice)));
-                                        }
+                                        while (scanner.hasNext()) {
+                                            String parameter = scanner.next();
+                                            if (parameter.equals("name:")) {
+                                                song.setTitle(scanner.next());
+                                            } else if (parameter.equals("releaseDate:")) {
+                                                song.setReleaseDate(scanner.next());
+                                            } else if (parameter.equals("length:")) {
+                                                song.setLength(scanner.next());
+                                            } else if (parameter.equals("album:")) {
+                                                List<Album> albums = AlbumsController.find(scanner.next());
+                                                int choice = options(albums);
+                                                song.setAlbum(albums.get(choice));
+                                            } else if (parameter.equals("artist:")) {
+                                                List<Artist> artists = ArtistsController.find(scanner.next());
+                                                int choice = options(artists);
+                                                song.setArtists(Arrays.asList(artists.get(choice)));
+                                            }
 
-                                        if (parameter.contains(";")) {
-                                            break;
+                                            if (parameter.contains(";")) {
+                                                break;
+                                            }
                                         }
+    //                                    break;
                                     }
-                                    break;
-                                }
                                     if (option.equals("save")) {
                                     SongsController.update(song);
                                     break;
