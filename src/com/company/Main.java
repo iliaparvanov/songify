@@ -41,7 +41,7 @@ public class Main {
             TableInitializer.seedDb();
         }
 
-        System.out.println("Wellcome to Songify");
+        System.out.println("Welcome to Songify");
 
         System.out.print("Choose function:\ncreate\nfind\nindex\nexit\n");
         while (scanner.hasNext()) {
@@ -60,16 +60,19 @@ public class Main {
 
                     switch (type) {
                         case "song":
-
+                            boolean songWasFound = true;
                             List<Song> songs = SongsController.find(scanner.next());
                             while (songs.isEmpty()) {
+                                System.out.println("No songs found...");
                                 String input = scanner.next();
                                 if (input.equals("back")) {
+                                    songWasFound = false;
                                     break;
                                 }
-                                System.out.println("No songs found...");
                                 songs = SongsController.find(input);
-
+                            }
+                            if (!songWasFound) {
+                                break;
                             }
                             System.out.println("Choose a song");
 
