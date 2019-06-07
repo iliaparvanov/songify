@@ -48,7 +48,7 @@ public class AlbumsController {
     public static void delete(int id) throws SQLException {
         SongsController.delete(AlbumsController.find(id));
         PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Album WHERE id = ?");
-        statement.setString(1, id+"");
+        statement.setInt(1, id);
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
             System.out.println("Album deleted succesfully");

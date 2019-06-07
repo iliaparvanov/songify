@@ -54,7 +54,7 @@ public class GenresController {
     public static void delete(int id) throws SQLException{
 
         PreparedStatement statement = connection.getConn().prepareStatement("DELETE FROM Genre WHERE id = ?");
-        statement.setString(1, id+"");
+        statement.setInt(1, id);
         int rowsDeleted = statement.executeUpdate();
         if(rowsDeleted > 0){
             System.out.println("Genre deleted succesfully");
